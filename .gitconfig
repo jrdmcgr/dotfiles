@@ -1,0 +1,22 @@
+[user]
+	name = Jared McGuire
+	email = jrdmcgr@gmail.com
+
+[github]
+	user = jrdmcgr
+
+[color]
+	diff = true
+	ui = auto
+
+[alias]
+	st = status
+	ci = commit
+	br = branch
+	co = checkout
+	df = diff
+	lg = log -p
+	timeline = log --oneline --graph --decorate
+
+[core]
+    editor = 'subl -w'
