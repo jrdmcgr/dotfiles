@@ -8,21 +8,22 @@ fi
 function install {
 	# Generate the ignore regex from lines in the ignore file.
 	set ignore = '' 
-	for line in `cat ~/Dotfiles/ignore`; do
+	for line in `cat ~/dotfiles/ignore`; do
 		set ignore = $ignore$(echo \\$line\| | tr -d "\n") 
 	done
 	# This removes the last pipe char. 
 	set ignore = $(echo "${ignore%?}")
 
-	for file in `ls -a ~/Dotfiles |
+	for file in `ls -a ~/dotfiles |
 			  # List all files that begin with a dot.
 			  egrep '^\..*' | 
 			  # Filter out files listed in the ignore file.
 			  egrep -v "$ignore" |
 			  # filter out dot and dotdot.
 			  egrep -v '^\.$|^\.\.$'`; do 
-		ln -s ~/Dotfiles/$file ~/
+		ln -s ~/dotfiles/$file ~/
 	done
+	source ~/.bashrc
 }
 
 # If a given directory exists, source all files in it.
@@ -35,10 +36,10 @@ function sourcedir {
 }
 
 # Source global files.
-sourcedir Dotfiles/Global
+sourcedir dotfiles/Global
 
 # Source OS specific files.
-sourcedir Dotfiles/$(uname)
+sourcedir dotfiles/$(uname)
 
 # Source host specific files.
-sourcedir Dotfiles/$(hostname)
+sourcedir dotfiles/$(hostname)
