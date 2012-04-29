@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # If a given directory exists, source all files in it.
 function sourcedir {
 	if [ -d $1 ]
@@ -8,10 +10,10 @@ function sourcedir {
 }
 
 # Source global files.
-sourcedir Global
+sourcedir Dotfiles/Global
 
 # Source OS specific files.
-sourcedir $(uname)
+sourcedir Dotfiles/$(uname)
 
 # Source host specific files.
-sourcedir $(hostname)
+sourcedir Dotfiles/$(hostname)
