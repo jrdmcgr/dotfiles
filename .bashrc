@@ -23,7 +23,6 @@ function install {
 			  egrep -v '^\.$|^\.\.$'`; do 
 		ln -s ~/dotfiles/$file ~/
 	done
-	source ~/.bashrc
 }
 
 # If a given directory exists, source all files in it.
