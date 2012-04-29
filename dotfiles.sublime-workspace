@@ -1,0 +1,232 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "bashrc_from_digarc",
+			"settings":
+			{
+				"buffer_size": 779,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 47.0,
+		"selected_items":
+		[
+			[
+				"bash",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"inst	",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/jmcguire/Curriculog/backend/domains/assessment/models/__init__.py",
+		"/Users/jmcguire/Curriculog/backend/domains/auth/models/__init__.py",
+		"/Users/jmcguire/Curriculog/backend/domains/assessment/models/Category.py",
+		"/Users/jmcguire/Curriculog/bin/curriculog",
+		"/Users/jmcguire/Curriculog/backend/domains/auth/User.py",
+		"/Users/jmcguire/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/jmcguire/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Users/jmcguire/Curriculog/sftp-config.json",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/F0028733-BD03-46C8-93F7-20B86FE7B604/ApprovalProcessStep.php",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/8A772CA9-9C04-4324-AA99-8C8D170C275D/approvalProcessForm.html.php",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/29A8C62E-708A-4ECE-A616-8F9683DB33BC/approvalProcess.single.default.html.php",
+		"/Users/jmcguire/.bash_profile",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/67373240-3483-42BE-8FDD-3C8E50989402/ProposalDashboard.py",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/64CF3B69-ECAF-46A8-8C94-1650B592994E/Proposal.py",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/3687C966-E66A-424F-B117-182F29232A9C/Workflow.py",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/B1C0A9E4-3BA4-4FA3-BB26-4231D0714D74/ProposalDashboard.py",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/D79F3989-9370-4D18-90A3-848CE2399163/Workflow.py",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/94070CC3-7E6B-4C58-889D-DD2F44D2EC94/ProposalController.php",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/8691CD73-6EC6-4031-9BDF-11139EC10BC9/Proposal.py",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/1259850A-F57D-4E6C-AF96-65C73E915592/User.py",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/457EC830-CBE3-4DDB-97A1-707BF18008E9/proposal.js",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/B6E1B672-8FF3-4EE6-8D30-6CBC876219D7/proposal.single.form.html.php",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/4896D9ED-9B8C-47C0-9D6F-3754EC64DBC3/Proposal.py",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/98A819FB-877A-4E6A-96A6-1B517C54CCE4/Client.php",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/3E71CFEA-B0E4-4B5A-A8EA-8C92BED52A1D/ApprovalProcessForm.php",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/951187D2-C283-41D8-AEB1-820838D84753/Workflow.py",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/E8810006-AD58-47B5-BF27-4D719D9C84B2/Workflow.py",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/C8274104-3570-4F08-9919-CEC42F857DB8/User.py",
+		"/Users/jmcguire/Library/Application Support/Sublime Text 2/Packages/User/Global.sublime-settings",
+		"/Users/jmcguire/Library/Application Support/Sublime Text 2/Packages/User/Base File.sublime-settings",
+		"/Users/jmcguire/Library/Application Support/Sublime Text 2/Packages/Default/Global.sublime-settings",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/6C651D16-6610-4B19-8558-4037D392475E/Proposal.py",
+		"/Users/jmcguire/Library/Caches/Cleanup At Startup/Transmit/CCC39906-56BD-40DD-9315-814A05C1A496/Proposal.py"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"currrent",
+			"()",
+			"scroll",
+			"getProposalUsers",
+			"Dashboard",
+			"role",
+			"logger.debug",
+			"logger",
+			"alert",
+			"logging.debug"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "bashrc_from_digarc",
+					"settings":
+					{
+						"buffer_size": 779,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								779,
+								779
+							]
+						],
+						"settings":
+						{
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.sftp":
+	{
+		"height": 112.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 310.0,
+	"status_bar_visible": true
+}
