@@ -57,10 +57,10 @@ function sourcedir {
 }
 
 # Source global files.
-sourcedir dotfiles/Global
+sourcedir ~/dotfiles/Global
 
 # Source OS specific files.
-sourcedir dotfiles/$(uname)
+sourcedir ~/dotfiles/$(uname)
 
 # Source host specific files.
-sourcedir dotfiles/$(hostname)
+sourcedir ~/dotfiles/$(hostname)
