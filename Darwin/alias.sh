@@ -1,2 +1,2 @@
 alias vbox='VBoxManage'
-alias ll='ls -lsFG'
+alias ll='ls -laFG'
