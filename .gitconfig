@@ -11,7 +11,8 @@
 
 [alias]
 	st = status
-	ci = commit
+	cm = commit
+	cmm = commit -m
 	br = branch
 	co = checkout
 	df = diff
