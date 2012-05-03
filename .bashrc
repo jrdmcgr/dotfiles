@@ -1,8 +1,8 @@
 #!/bin/bash
-if [[ $- != *i* ]]; then
-	# Shell is non-interactive.  Be done now!
-	return
-fi
+# if [[ $- != *i* ]]; then
+# 	# Shell is non-interactive.  Be done now!
+# 	return
+# fi
 
 function escape_regex { 
 	local buffer="";
