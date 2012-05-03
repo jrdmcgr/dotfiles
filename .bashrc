@@ -4,7 +4,7 @@
 # 	return
 # fi
 
-function escape_regex { 
+escape_regex() { 
 	local buffer="";
 	buffer=${1//\\/\\\\}; # replace backslash
 	buffer=${buffer//\./\\\.}; # replace any .
@@ -27,7 +27,7 @@ function escape_regex {
 
 
 # Install: Symlink all dotfiles to $HOME.
-function install {
+install() {
 	# Generate the ignore regex from lines in the ignore file.
 	for line in `cat ~/dotfiles/ignore`; do 
 		local ignore="$ignore""^"$( escape_regex $line | tr -d "\n"; )"$|"
@@ -52,7 +52,7 @@ function install {
 }
 
 # If a given directory exists, source all files in it.
-function sourcedir {
+sourcedir() {
 	if [ -d $1 ]; then 
 		for i in `ls $1`; do 
 			source $1/$i
