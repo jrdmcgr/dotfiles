@@ -43,7 +43,11 @@ function install {
 			  # filter out dot and dotdot.
 			  egrep -v '^\.$|^\.\.$'`; do
 		echo "Linking $file"
-		ln -Fs ~/dotfiles/$file ~/
+		if [ $(uname) == 'Darwin' ]; then 
+			ln -Fs ~/dotfiles/$file ~/
+		else
+			ln -fs ~/dotfiles/$file ~/
+		fi
 	done
 }
 
