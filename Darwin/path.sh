@@ -1,1 +1,1 @@
-PATH=$PATH:/usr/local/share/python/
+export PATH=$PATH:/usr/local/share/python/
