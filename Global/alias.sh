@@ -13,6 +13,7 @@ genpasswd() {
       	tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
 }
 
+# Use vim to read the man pages.
 vman() {
    if [ $# -eq 0 ]; then
      /usr/bin/man
@@ -25,5 +26,8 @@ vman() {
      fi
    fi
 }
-alias man='vman'
 
+
+alias man='vman'
+alias fn="find . -name"
+alias sqlite="sqlite3"
