@@ -12,3 +12,18 @@ genpasswd() {
        	[ "$l" == "" ] && l=20
       	tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
 }
+
+vman() {
+   if [ $# -eq 0 ]; then
+     /usr/bin/man
+   else
+     if man -w $* >/dev/null 2>/dev/null
+     then
+       /usr/bin/man $* | col -b | vim -R -c 'set ft=man nomod' -
+     else
+       echo No man page for $*
+     fi
+   fi
+}
+alias man='vman'
+
