@@ -1,15 +1,15 @@
 #!/bin/bash
 
-## Configuration ##
 # Set the default dotfile directory.
 dotfile_directory=$HOME/dotfiles
+
 # Ignore these files when linking.
 ignore=( .git .gitignore .DS_Store )
 
 
 # link_dotfiles: Symlink all dotfiles to $HOME. 
 # This only links files that begin with a dot.
-# TODO: 
+# TODO: Maybe have an include array to install items that don't begin with a dot
 # TODO: This should accept a directory as the first arg which would default to
 #   ~/dotfiles and a target directory as a second arg which defauls to $HOME.
 #   This will allow host specific files to overwrite global ones.
