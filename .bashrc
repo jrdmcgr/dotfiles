@@ -1,70 +1,52 @@
 #!/bin/bash
-# if [[ $- != *i* ]]; then
-# 	# Shell is non-interactive.  Be done now!
-# 	return
-# fi
 
-escape_regex() { 
-	local buffer="";
-	buffer=${1//\\/\\\\}; # replace backslash
-	buffer=${buffer//\./\\\.}; # replace any .
-	buffer=${buffer//\*/\\\*}; # replace quantifier *
-	buffer=${buffer//\+/\\\+}; # replace quantifier +
-	buffer=${buffer//\?/\\\?}; # replace query
-	buffer=${buffer//\^/\\\^}; # replace sol
-	buffer=${buffer//'$'/'\$'}; # replace eol
-	buffer=${buffer//'|'/'\|'}; # replace or
-	buffer=${buffer//'['/'\['}; # replace class open
-	buffer=${buffer//']'/'\]'}; # replace class close    
-	buffer=${buffer//'{'/'\{'}; # replace bound open
-	buffer=${buffer//'}'/'\}'}; # replace bound close
-	buffer=${buffer//'('/'\('}; # replace group open
-	buffer=${buffer//')'/'\)'}; # replace group close
-	buffer=${buffer//\"/\\\"}; # replace double quote
-	buffer=${buffer//\'/\\\'}; # replace single quote
-	echo -n "$buffer";
-}
+## Configuration ##
+# Set the default dotfile directory.
+dotfile_directory=$HOME/dotfiles
+# Ignore these files when linking.
+ignore=( .git .gitignore .DS_Store )
 
 
-# Install: Symlink all dotfiles to $HOME.
-install() {
-	# Generate the ignore regex from lines in the ignore file.
-	for line in `cat ~/dotfiles/ignore`; do 
-		local ignore="$ignore""^"$( escape_regex $line | tr -d "\n"; )"$|"
-	done;
-	# This removes the last pipe char. 
-	local ignore=$(echo "${ignore%?}")
-	echo $ignore
-	for file in `ls -a ~/dotfiles |
-			  # List all files that begin with a dot.
-			  egrep '^\..*' | 
-			  # Filter out files listed in the ignore file.
-			  egrep -v "$ignore" |
-			  # filter out dot and dotdot.
-			  egrep -v '^\.$|^\.\.$'`; do
-		echo "Linking $file"
-		if [ $(uname) == 'Darwin' ]; then 
-			ln -Fs ~/dotfiles/$file ~/
+# link_dotfiles: Symlink all dotfiles to $HOME. 
+# This only links files that begin with a dot.
+# TODO: 
+# TODO: This should accept a directory as the first arg which would default to
+#   ~/dotfiles and a target directory as a second arg which defauls to $HOME.
+#   This will allow host specific files to overwrite global ones.
+link_dotfiles() {
+	for i in `ls -a $dotfile_directory`; do
+		# if the file begins with a dot
+		! [[ $i == .* ]] && continue
+		
+		# and it's not in the ignore array
+		(echo ${ignore[*]} | grep -q $i) && continue
+		
+		# then link the file, but don't overwrite regular files.
+		if [ -f $HOME/$i ] && ! [ -L $HOME/$i ]; then
+			echo "$i could not be linked; a regular file exists at $HOME/$i"
 		else
-			ln -fs ~/dotfiles/$file ~/
+			echo "Linking $i"
+			ln -fs $dotfile_directory/$i $HOME/$(basename $i)
 		fi
 	done
 }
 
-# If a given directory exists, source all files in it.
+
+# If a given directory exists, source all .sh files in it.
 sourcedir() {
 	if [ -d $1 ]; then 
-		for i in `ls $1`; do 
-			source $1/$i
+		for i in `ls $1/*.sh`; do 
+			source $i
 		done
 	fi
 }
 
+
 # Source global files.
-sourcedir ~/dotfiles/Global
+sourcedir $dotfile_directory
 
 # Source OS specific files.
-sourcedir ~/dotfiles/$(uname)
+sourcedir $dotfile_directory/$(uname)
 
 # Source host specific files.
-sourcedir ~/dotfiles/$(hostname)
+sourcedir $dotfile_directory/$(hostname)
