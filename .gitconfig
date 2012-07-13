@@ -10,14 +10,14 @@
 	ui = auto
 
 [alias]
-	st = status
+	st = !clear && git status
 	cm = commit
 	cmm = commit -m
 	br = branch
 	co = checkout
 	df = diff
-	lg = log -p
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset' --abbrev-commit
 	timeline = log --oneline --graph --decorate
-
+	unstage = !git reset HEAD -- && clear && git status
 [core]
     editor = 'subl -w'
