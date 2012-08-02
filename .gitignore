@@ -2,3 +2,4 @@
 private.sh
 *.sublime-workspace
 *.sublime-project
+.vim/bundle
