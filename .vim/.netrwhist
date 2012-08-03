@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/mnt/clients'
+let g:netrw_dirhist_2='/mnt/clients/acalog-clients-qa'
+let g:netrw_dirhist_3='/etc/apache2/mods-enabled'
+let g:netrw_dirhist_4='/etc/supervisord'
+let g:netrw_dirhist_5='/home/jmcguire/dotfiles/web01-dev-curr-a-e1a'
+let g:netrw_dirhist_6='/home/jmcguire/dotfiles/Global'
