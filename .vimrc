@@ -36,7 +36,7 @@ Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'LustyJuggler'
 Bundle 'git://git.wincent.com/command-t.git'
-
+Bundle 'spolu/dwm.vim'
 
 let g:LustyJugglerSuppressRubyWarning = 1
 let NERDTreeMinimalUI=1
