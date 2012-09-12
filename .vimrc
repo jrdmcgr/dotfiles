@@ -44,3 +44,7 @@ Bundle 'spolu/dwm.vim'
 
 let g:LustyJugglerSuppressRubyWarning = 1
 let NERDTreeMinimalUI=1
+
+
+" Line number color
+highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
