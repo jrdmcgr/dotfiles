@@ -6,6 +6,10 @@ filetype off               " required by vundle.
 filetype plugin indent on  " required by vundle.
 syntax on
 
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
 
 " Improve vimdiff syntax highlighting.
 highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black
