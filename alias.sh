@@ -1,7 +1,7 @@
 # Reload .bashrc
 alias rebash='. ~/.bashrc'
 
-alias tailf="tail -f"
+alias tf="tail -f"
 alias +x="chmod +x $1"
 
 # Set the tab title in iTerm 2
@@ -27,7 +27,6 @@ vman() {
    fi
 }
 
-
-# alias man='vman'
 alias fn="find . -name"
 alias sqlite="sqlite3"
+
