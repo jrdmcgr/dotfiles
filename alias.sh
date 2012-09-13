@@ -27,8 +27,6 @@ vman() {
    fi
 }
 
-
-
 alias fn="find . -name"
 alias sqlite="sqlite3"
 

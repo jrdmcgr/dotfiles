@@ -41,6 +41,43 @@ Bundle 'FuzzyFinder'
 Bundle 'LustyJuggler'
 Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'spolu/dwm.vim'
+Bundle 'myusuf3/numbers.vim'
+
+" Can't get this to work
+Bundle 'vim-coffee-script'
+autocmd BufNewFile,BufRead *.coffee set filetype=coffee'
+
 
 let g:LustyJugglerSuppressRubyWarning = 1
 let NERDTreeMinimalUI=1
+" Brief help
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed.
+" Brief help
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed.
+
+" Line number color
+highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+
+nnoremap <C-l> :NERDTreeToggle<CR>
+nnoremap ; :
+
+set number
+highlight LineNr ctermbg=0 ctermfg=8
+let g:Powerline_symbols = 'fancy'
+
+set backspace=indent,eol,start
+
+" Set the vertical split character to a space.
+set fillchars=vert:\ 
