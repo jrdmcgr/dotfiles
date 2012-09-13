@@ -1,32 +1,41 @@
+syntax on
+
 set number
 set mouse=a
-set hidden                 " Something to do with buffers
-set nocompatible           " be iMproved
-filetype off               " required by vundle.
-filetype plugin indent on  " required by vundle.
-syntax on
+set hidden              " Something to do with buffers
+set nocompatible        " be iMproved
+set backspace=indent,eol,start
+set fillchars=vert:\    " Set the vertical split character to a space.
+set encoding=utf-8
+set laststatus=2        " Always show the status bar. (for powerline)
+set term=screen-256color
 
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
 
-" Improve vimdiff syntax highlighting.
-highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black
-highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
      
-
+" Change the cursor to a line when in insert mode.
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
+let g:LustyJugglerSuppressRubyWarning = 1
+let NERDTreeMinimalUI=1
+let g:Powerline_symbols = 'fancy'
 
 " Toggle line numbers for selecting text from the terminal.        
 nmap <F2> :set invnumber<CR>  
 nmap ; :
 imap jj <Esc>
 imap <S-Tab> <C-p>
+nmap <Leader>n :NERDTreeToggle<CR>
 
-
+" -----------------------------------
+" Bundles
+" -----------------------------------
+filetype off               " required by vundle.
+filetype plugin indent on  " required by vundle.
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
@@ -47,37 +56,12 @@ Bundle 'myusuf3/numbers.vim'
 Bundle 'vim-coffee-script'
 autocmd BufNewFile,BufRead *.coffee set filetype=coffee'
 
-
-let g:LustyJugglerSuppressRubyWarning = 1
-let NERDTreeMinimalUI=1
-" Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-"
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle command are not allowed.
-" Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-"
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle command are not allowed.
-
 " Line number color
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 
-nnoremap <C-l> :NERDTreeToggle<CR>
-nnoremap ; :
+" Improve vimdiff syntax highlighting. This isn't really a big improvement.
+highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black
+highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
 
-set number
-highlight LineNr ctermbg=0 ctermfg=8
-let g:Powerline_symbols = 'fancy'
-
-set backspace=indent,eol,start
-
-" Set the vertical split character to a space.
-set fillchars=vert:\ 
+" Make the tildes invisble
+highlight NonText ctermfg=0
