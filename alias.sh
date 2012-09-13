@@ -28,6 +28,6 @@ vman() {
 }
 
 
-alias man='vman'
+# alias man='vman'
 alias fn="find . -name"
 alias sqlite="sqlite3"
