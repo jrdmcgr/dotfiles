@@ -29,4 +29,4 @@ vman() {
 
 alias fn="find . -name"
 alias sqlite="sqlite3"
-
+alias ccat="pygmentize"
