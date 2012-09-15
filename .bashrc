@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 # Set the default dotfile directory.
 dotfile_directory=$HOME/dotfiles
 
