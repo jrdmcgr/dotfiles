@@ -18,7 +18,9 @@ set shiftwidth=4
 set expandtab                   " Convert tabs to spaces.
 set pastetoggle=<F2>            " Key to toggle auto indenting when pasting.
 
-set wildchar=<Tab> wildmenu wildmode=full
+set wildchar=<Tab> 
+set wildmenu 
+set wildmode=full
 
 
 
@@ -44,22 +46,33 @@ let g:Powerline_symbols = 'fancy'
 
 " Toggle line numbers for selecting text from the terminal.        
 nmap <F2> :set invnumber<CR>  
-
 nmap ; :
 imap jj <Esc>
 imap <S-Tab> <C-p>
 
 nmap <Leader>n :NERDTreeToggle<CR>
 
+" Buffer shortcuts
 nmap <Leader>bb :ls<CR>:buffer<Space> 
+nmap <Leader>bn :bn<CR>
+nmap <Leader>bp :bp<CR>
+nmap <Leader>bd :bd<CR>
+nmap <Leader>bdd :bd!<CR>
 
 " Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
+nnoremap <Leader>ev :e $MYVIMRC<CR>
+nnoremap <Leader>sv :so $MYVIMRC<CR>
 
 " Move to beginning and end of line in insert mode.
+" These are the emacs keybindings that are ubiqitous on OS X.
 inoremap <C-e> <Esc>A
 inoremap <C-a> <Esc>I
+
+" Forgot to sudo
+cmap w!! w !sudo tee % >/dev/null
+cmap x!! x !sudo tee % >/dev/null
+
+cmap Q q!
 
 
 " -----------------------------------------------------------------------------
@@ -85,8 +98,8 @@ Bundle 'spolu/dwm.vim'
 Bundle 'myusuf3/numbers.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'kien/ctrlp.vim'
-Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'vim-coffee-script'
+Bundle 'Shougo/neocomplcache'
 
 
 
@@ -104,4 +117,5 @@ highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
 
 highlight NonText ctermfg=bg guifg=bg
 
+highlight VertSplit ctermbg=232
 
