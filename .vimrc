@@ -17,10 +17,16 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab                   " Convert tabs to spaces.
 set pastetoggle=<F2>            " Key to toggle auto indenting when pasting.
+set nowrap                      " Don't wrap long lines.
 
 set wildchar=<Tab> 
 set wildmenu 
 set wildmode=full
+" What do these do?
+set wildchar=<Tab> 
+set wildmenu 
+set wildmode=full
+
 set clipboard=unnamedplus
 
 
@@ -107,8 +113,8 @@ Bundle 'vim-coffee-script'
 " Bundle 'Shougo/neocomplcache'
 Bundle 'davidoc/taskpaper.vim'
 Bundle 'troydm/easybuffer.vim'
-
-
+Bundle 'jelera/vim-javascript-syntax'
+Bundle 'taglist.vim'
 
 " -----------------------------------------------------------------------------
 "   Interface Colors
