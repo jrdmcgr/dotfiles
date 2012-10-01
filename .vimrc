@@ -106,7 +106,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'vim-coffee-script'
 " Bundle 'Shougo/neocomplcache'
 Bundle 'davidoc/taskpaper.vim'
-
+Bundle 'troydm/easybuffer.vim'
 
 
 
