@@ -9,7 +9,7 @@ set hidden                      " Allow buffer switchng without saving.
 set laststatus=2                " Always show the status bar. (for powerline)
 set mouse=a                     " Enable the mouse; clicking and scrolling
 set number                      " Turn on line numbers
-set term=xterm-256color         " Enable 256 colors. 
+set term=screen-256color         " Enable 256 colors. 
 
 " Default tab settings
 set tabstop=4
@@ -21,7 +21,7 @@ set pastetoggle=<F2>            " Key to toggle auto indenting when pasting.
 set wildchar=<Tab> 
 set wildmenu 
 set wildmode=full
-
+set clipboard=unnamedplus
 
 
 " -----------------------------------------------------------------------------
@@ -31,21 +31,26 @@ set wildmode=full
 let mapleader = ','
 
 " Block cursor in normal mode; Thin cursor in insert mode.
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
  " Don't complain if vim isn't compiled with ruby
 let g:LustyJugglerSuppressRubyWarning = 1  
 let NERDTreeMinimalUI = 1
 let g:Powerline_symbols = 'fancy'
-
+let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " -----------------------------------------------------------------------------
 "   Key maps
 " -----------------------------------------------------------------------------
 
 " Toggle line numbers for selecting text from the terminal.        
-nmap <F2> :set invnumber<CR>  
+" nmap <F2> :set invnumber<CR>  
 nmap ; :
 imap jj <Esc>
 imap <S-Tab> <C-p>
@@ -99,7 +104,8 @@ Bundle 'myusuf3/numbers.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'vim-coffee-script'
-Bundle 'Shougo/neocomplcache'
+" Bundle 'Shougo/neocomplcache'
+Bundle 'davidoc/taskpaper.vim'
 
 
 
@@ -118,4 +124,6 @@ highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
 highlight NonText ctermfg=bg guifg=bg
 
 highlight VertSplit ctermbg=232
+
+
 
