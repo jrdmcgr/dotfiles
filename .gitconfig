@@ -13,6 +13,7 @@
 	st = !clear && git status
 	cm = commit
 	cmm = commit -m
+    cam = commit -am
 	br = branch
 	co = checkout
 	df = diff
@@ -20,4 +21,4 @@
 	timeline = log --oneline --graph --decorate
 	unstage = !git reset HEAD -- && clear && git status
 [core]
-    editor = 'subl -w'
+    editor = 'vim'
