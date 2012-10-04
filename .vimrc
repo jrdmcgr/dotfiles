@@ -94,27 +94,28 @@ filetype off               " required by vundle.
 filetype plugin indent on  " required by vundle.
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'tpope/vim-rails.git'
 Bundle 'scrooloose/nerdtree'
-Bundle 'L9'
-Bundle 'FuzzyFinder'
 Bundle 'LustyJuggler'
-Bundle 'git://git.wincent.com/command-t.git'
-Bundle 'spolu/dwm.vim'
 Bundle 'myusuf3/numbers.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'vim-coffee-script'
-" Bundle 'Shougo/neocomplcache'
-Bundle 'davidoc/taskpaper.vim'
-Bundle 'troydm/easybuffer.vim'
 Bundle 'jelera/vim-javascript-syntax'
-Bundle 'taglist.vim'
+Bundle 'python.vim'
+
+
+" Bundle 'taglist.vim'
+" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Bundle 'Shougo/neocomplcache'
+" Bundle 'davidoc/taskpaper.vim'
+" Bundle 'troydm/easybuffer.vim'
+" Bundle 'spolu/dwm.vim'
+
 
 " -----------------------------------------------------------------------------
 "   Interface Colors
