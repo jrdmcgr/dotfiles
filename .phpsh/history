@@ -1,0 +1,7 @@
+help
+print 'asdf'
+h
+bool
+$asdf = 'asdf'
+$asdf
+print $asdf;

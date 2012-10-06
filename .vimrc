@@ -9,7 +9,7 @@ set hidden                      " Allow buffer switchng without saving.
 set laststatus=2                " Always show the status bar. (for powerline)
 set mouse=a                     " Enable the mouse; clicking and scrolling
 set number                      " Turn on line numbers
-set term=screen-256color         " Enable 256 colors. 
+set term=screen-256color        " Enable 256 colors. 
 
 " Default tab settings
 set tabstop=4
@@ -19,16 +19,13 @@ set expandtab                   " Convert tabs to spaces.
 set pastetoggle=<F2>            " Key to toggle auto indenting when pasting.
 set nowrap                      " Don't wrap long lines.
 
-set wildchar=<Tab> 
-set wildmenu 
-set wildmode=full
 " What do these do?
 set wildchar=<Tab> 
 set wildmenu 
 set wildmode=full
 
 set clipboard=unnamedplus
-
+set smartcase                   " Case insensitive search unless uppercase chars are in the search string.
 
 " -----------------------------------------------------------------------------
 "   Variables
