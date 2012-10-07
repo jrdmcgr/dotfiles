@@ -29,6 +29,9 @@ set clipboard=unnamedplus
 set ignorecase                  " Ignore case when searching.
 set smartcase                   " Case insensitive search unless uppercase chars are in the search string.
 
+set nobackup                    " Don't create backup files
+set noswapfile                  " Don't create swap files
+
 " -----------------------------------------------------------------------------
 "   Variables
 " -----------------------------------------------------------------------------
