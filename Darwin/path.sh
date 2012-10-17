@@ -6,10 +6,7 @@ PATH=$PATH:/usr/bin:/usr/sbin:/bin:/sbin
 PATH=$PATH:/usr/local/Cellar/ruby/1.9.3-p286/bin
 
 export PATH
-
-# export PATH=~/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin
 export PYTHONPATH=/usr/local/lib/python2.7/site-packages
-# export PATH=$PATH:$EC2_HOME/bin
 
 # This is specifically for the github Sublime Text plugin.
 # It exports environment vars to GUI applications.

@@ -24,7 +24,7 @@ set wildchar=<Tab>
 set wildmenu 
 set wildmode=full
 
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
 
 set ignorecase                  " Ignore case when searching.
 set smartcase                   " Case insensitive search unless uppercase chars are in the search string.
