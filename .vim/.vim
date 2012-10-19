@@ -1,1 +1,0 @@
-/home/jmcguire/dotfiles/.vim
