@@ -52,6 +52,7 @@ let g:LustyJugglerSuppressRubyWarning = 1
 let NERDTreeMinimalUI = 1
 let g:Powerline_symbols = 'fancy'
 let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:python_highlight_all = 1
 
 " -----------------------------------------------------------------------------
 "   Key maps
