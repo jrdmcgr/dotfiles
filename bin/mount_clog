@@ -1,0 +1,3 @@
+#! /bin/bash
+[ -d /Volumes/Curriculog ] || mkdir /Volumes/Curriculog
+sshfs clog:/home/jmcguire/dev/curriculog /Volumes/Curriculog -o reconnect,volname=Curriculog

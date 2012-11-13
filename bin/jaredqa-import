@@ -1,0 +1,82 @@
+#! /usr/bin/php
+<?php
+
+	/*
+	1. copy the dumps from mybackups.
+	2. decompress the dumps into ~/data.
+	3. load the Acalog data.
+	4. load the API data.
+	3. update the system API keys.
+	4. update the email field for all records in acalog_account
+	*/
+
+	$your_email = 'mnelson@digarc.com';
+
+	# mysql connection 
+	$user = 'qa';
+	$pass = 'qa';
+	$host = 'dbm01-qa-a-e1c.aws.acalog.com';
+	$acalog_db = 'acalog_scranton';
+	$api_db = 'api_scranton';
+
+	# get args
+	$options = getopt('s:');
+
+	$school = $options['s'];
+
+
+	# make the path to the backups
+	$today = date('Y-m-d');
+	$acalog_data_path = "/mybackups/dumps/prod-hera_$today/acalog_$school-$today.mysql.bz2";
+	$api_data_path = "/mybackups/dumps/prod-hera_$today/api_$school-$today.mysql.bz2";
+	
+	# copy the backups to ~/data
+	echo "Copying the latest $school db dumps...\n";
+	$returned = `cp $acalog_data_path $api_data_path ~/data/`;
+	$acalog_data_path = "~/data/acalog_$school-$today.mysql.bz2";
+	$api_data_path = "~/data/api_$school-$today.mysql.bz2";
+	echo isset($returned) ? $returned : "done \n";
+
+	# decompress the backups
+	echo "Extracting...\n";
+	$returned = `bunzip2 $acalog_data_path $api_data_path`;
+	$acalog_data_path = "~/data/acalog_$school-$today.mysql";
+	$api_data_path = "~/data/api_$school-$today.mysql";
+	echo isset($returned) ? $returned : "done \n";
+
+	# load the Acalog data
+	echo "Loading Acalog data into db: acalog_jaredqa...\n";
+	$returned = `mysql -u$user -p$pass -h$host $acalog_db < $acalog_data_path`;
+	echo isset($returned) ? $returned : "done \n";
+
+	# load the API data
+	echo "Loading API data into db: api_jaredqa...\n";
+	$returned = `mysql -u$user -p$pass -h$host api_jaredqa < $api_data_path`;
+	echo isset($returned) ? $returned : "done \n";
+
+	# sql
+	$update_public_key = "UPDATE $acalog_db.acalog_api_keys SET api_key = (SELECT api_key FROM acalog_api.api_keys WHERE client = 'jaredqa' AND key_type = 'system-public') WHERE key_type = 'system-public'";
+
+	$update_private_key = "UPDATE $acalog_db.acalog_api_keys SET api_key = (SELECT api_key FROM acalog_api.api_keys WHERE client = 'jaredqa' AND key_type = 'system-private') WHERE key_type = 'system-private'";
+
+	$update_emails = "UPDATE $acalog_db.acalog_account SET email_address =" ."'".$your_email."'";
+
+	$sql = compact('update_public_key','update_private_key','update_emails');
+
+	# execute the sql
+	foreach($sql as $name => $statement) {
+		switch($name) {
+			case 'update_public_key':
+				echo "Updating the system-public API key... \n";
+				break;
+			case 'update_private_key':
+				echo "Updating the system-private API key... \n";
+				break;
+			case 'update_emails':
+				echo "Updating the acalog_account email addresses... \n";
+				break;
+		}
+		$returned = `mysql -u$user -p$pass -h$host -e "$statement"`;
+		echo $returned;
+	}
+?>

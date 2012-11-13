@@ -1,2 +1,3 @@
 #!/bin/bash
-mv $1 ~/.Trash/
+mv $1 ~/.Trash;
+afplay "/System/Library/Components/CoreAudio.component/Contents/Resources/SystemSounds/finder/move to trash.aif";
