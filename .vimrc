@@ -93,7 +93,6 @@ cmap Q q!
 " -----------------------------------------------------------------------------
 
 filetype off               " required by vundle.
-filetype plugin indent on  " required by vundle.
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -117,6 +116,7 @@ Bundle 'python.vim'
 " Bundle 'davidoc/taskpaper.vim'
 " Bundle 'troydm/easybuffer.vim'
 " Bundle 'spolu/dwm.vim'
+filetype plugin indent on  " required by vundle.
 
 
 " -----------------------------------------------------------------------------
