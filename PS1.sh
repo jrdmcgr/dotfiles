@@ -16,7 +16,7 @@ right_prompt() {
 home_prompt() {
 
 	# If we're home then use a simple prompt.
-	if [ `pwd` == $HOME ]; then 
+    if [ "$(pwd)" == $HOME ]; then 
 		PS1=' \[\e[0;32m\]⚡\[\e[0m\] '
 
     # Check for git bash completion on Mac.
