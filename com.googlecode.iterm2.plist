@@ -470,7 +470,7 @@
 	<key>HideActivityIndicator</key>
 	<false/>
 	<key>HideScrollbar</key>
-	<true/>
+	<false/>
 	<key>HideTab</key>
 	<true/>
 	<key>HighlightTabLabels</key>
@@ -501,12 +501,10 @@
 	<false/>
 	<key>NSColorPanelMode</key>
 	<string>65535</string>
-	<key>NSColorPickerSlidersDefaults</key>
-	<string>1</string>
 	<key>NSFontPanelAttributes</key>
 	<string>1, 0</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/dotfiles</string>
+	<string>~/Documents</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -591,6 +589,14 @@
 	</array>
 	<key>NSToolbar Configuration Terminal Toolbar</key>
 	<dict>
+		<key>TB Default Item Identifiers</key>
+		<array>
+			<string>New</string>
+			<string>Info</string>
+			<string>Close</string>
+			<string>Command</string>
+			<string>Profiles</string>
+		</array>
 		<key>TB Display Mode</key>
 		<integer>1</integer>
 		<key>TB Icon Size Mode</key>
@@ -613,16 +619,16 @@
 		<key>TB Visibility Priority Values</key>
 		<dict/>
 	</dict>
-	<key>NSWindow Frame NSColorPanel</key>
-	<string>48 466 214 309 0 0 1280 778 </string>
-	<key>NSWindow Frame NSNavGotoPanel</key>
-	<string>426 549 432 134 0 0 1280 778 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>265 293 924 485 0 0 1280 778 </string>
+	<string>809 513 605 485 0 0 2560 1418 </string>
+	<key>NSWindow Frame SUStatusFrame</key>
+	<string>594 825 384 129 0 0 1680 1028 </string>
+	<key>NSWindow Frame UKCrashReporter</key>
+	<string>127 444 592 584 0 0 1680 1028 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>4 22 1276 756 0 0 1280 778 </string>
+	<string>4 0 1277 1418 0 0 2560 1418 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>4 22 1276 756 0 0 1280 778 </string>
+	<string>1680 0 1680 525 1680 0 1680 1050 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -2782,7 +2788,7 @@
 	<key>NotFirstRun</key>
 	<true/>
 	<key>OnlyWhenMoreTabs</key>
-	<true/>
+	<false/>
 	<key>OpenArrangementAtStartup</key>
 	<false/>
 	<key>OpenBookmark</key>
@@ -2827,13 +2833,13 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/jared/dotfiles</string>
+	<string>/Users/jmcguire/dotfiles</string>
 	<key>PromptOnClose</key>
 	<true/>
 	<key>PromptOnQuit</key>
-	<true/>
-	<key>QuitWhenAllWindowsClosed</key>
 	<false/>
+	<key>QuitWhenAllWindowsClosed</key>
+	<true/>
 	<key>RightCommand</key>
 	<integer>8</integer>
 	<key>RightOption</key>
@@ -2845,7 +2851,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2012-11-17T13:38:10Z</date>
+	<date>2013-02-19T14:57:42Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -2875,10 +2881,12 @@
 	</array>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<true/>
+	<key>UKCrashReporterLastCrashReportDate</key>
+	<real>1335987968</real>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>UseBorder</key>
-	<true/>
+	<false/>
 	<key>UseCompactLabel</key>
 	<true/>
 	<key>UseLionStyleFullscreen</key>
