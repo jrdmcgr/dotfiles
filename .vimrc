@@ -109,7 +109,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'vim-coffee-script'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle 'python.vim'
-
+Bundle 'endwise.vim'
 
 " Bundle 'taglist.vim'
 " Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
