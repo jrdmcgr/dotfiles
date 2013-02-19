@@ -21,5 +21,13 @@
 	timeline = log --oneline --graph --decorate
 	unstage = !git reset HEAD -- && clear && git status
     mylog = log --author=Jared --oneline --no-merges --branches --since=1.week.ago
+	switch = !legit switch \"$@\"
+	branches = !legit branches
+	sprout = !legit sprout \"$@\"
+	unpublish = !legit unpublish \"$@\"
+	harvest = !legit harvest \"$@\"
+	sync = !legit sync \"$@\"
+	publish = !legit publish \"$@\"
+	graft = !legit graft \"$@\"
 [core]
     editor = 'vim'
