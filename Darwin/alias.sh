@@ -1,5 +1,5 @@
 alias vbox='VBoxManage'
-alias ll='ls -laFGL'
+alias ll='ls -laFGLP'
 alias ip="ipconfig getifaddr en0"
 
 # Edit a remote file with Sublime Text.
