@@ -109,6 +109,8 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'vim-coffee-script'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle 'python.vim'
+Bundle 'yaml.vim'
+Bundle 'saltstack/salt-vim'
 
 
 " Bundle 'taglist.vim'
