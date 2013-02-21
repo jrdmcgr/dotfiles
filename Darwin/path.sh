@@ -2,8 +2,9 @@ PATH=$HOME/bin
 PATH=$PATH:/usr/local/bin:/usr/local/sbin
 PATH=$PATH:/usr/local/share/python
 PATH=$PATH:/usr/local/Cellar/gems/1.8/bin
-PATH=$PATH:/usr/bin:/usr/sbin:/bin:/sbin
 PATH=$PATH:/usr/local/Cellar/ruby/1.9.3-p286/bin
+PATH=$PATH:/usr/bin:/usr/sbin:/bin:/sbin
+
 # Node modules
 PATH=$PATH:/usr/local/share/npm/bin
 # Heroku
