@@ -111,7 +111,7 @@ Bundle 'jelera/vim-javascript-syntax'
 Bundle 'python.vim'
 Bundle 'yaml.vim'
 Bundle 'saltstack/salt-vim'
-
+Bundle 'endwise.vim'
 
 " Bundle 'taglist.vim'
 " Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
