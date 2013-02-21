@@ -1,0 +1,5 @@
+#!/usr/bin/env python
+""" Pretty Print $PATH """
+import os
+for path in os.environ['PATH'].split(':'):
+    print path
