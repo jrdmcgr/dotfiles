@@ -15,8 +15,8 @@ trunctablegrep() {
 
 ddd() { 
 	for args; do 
-		outfile=~/data/${args}_`date +%m%d%y`.sql
-		latest=~/data/${args}_latest.sql
+		outfile=~/data/${args}-`date +%Y-%m-%d-%H:%M%S`.sql
+		latest=~/data/${args}-latest.sql
 		mysqldump ${args} > $outfile
 		ln -fs $outfile $latest
 	done
