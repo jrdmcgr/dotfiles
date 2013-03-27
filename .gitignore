@@ -3,3 +3,7 @@ private.sh
 *.sublime-workspace
 *.sublime-project
 .vim/bundle
+/bin/taskpaper-hack.py
+bin/jaredqa-import
+com.googlecode.iterm2.plist
+.emacs.d/
