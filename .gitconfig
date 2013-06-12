@@ -31,3 +31,5 @@
 	graft = !legit graft \"$@\"
 [core]
     editor = 'vim'
+[http]
+	sslVerify = true
