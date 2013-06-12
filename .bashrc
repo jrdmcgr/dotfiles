@@ -84,3 +84,6 @@ sourcedir $dotfile_directory/$(uname)
 
 # Source host specific files.
 sourcedir $dotfile_directory/$(hostname)
+
+
+eval "$(rbenv init -)"
