@@ -112,6 +112,7 @@ Bundle 'python.vim'
 Bundle 'yaml.vim'
 Bundle 'saltstack/salt-vim'
 Bundle 'endwise.vim'
+Bundle 'jnwhiteh/vim-golang'
 
 " Bundle 'taglist.vim'
 " Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}

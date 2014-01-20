@@ -1,0 +1,20 @@
+#! /bin/bash
+
+mkdir -p $1/{js,css}
+touch $1/js/main.js $1/css/style.css
+tee $1/index.html << EOF > /dev/null
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>$1</title>
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="js/main.js"></script>
+	</body>
+</html>
+EOF
+
+tree $1
