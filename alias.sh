@@ -20,3 +20,8 @@ function tt() {
 function mcd() {
   mkdir -p "$1" && cd "$1";
 }
+
+summary() {
+    (head -5; tail -5;) < $1
+}
+

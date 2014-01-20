@@ -20,8 +20,11 @@
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset' --abbrev-commit
 	timeline = log --oneline --graph --decorate
 	unstage = !git reset HEAD -- && clear && git status
-    mylog = log --author=Jared --oneline --no-merges --branches --since=1.week.ago
-	switch = !legit switch \"$@\"
+    weekly-report = log --author=Jared --oneline --no-merges --branches --since=1.week.ago
+    diff = diff --patience --ignore-space-at-eol --ignore-space-change --ignore-all-space --ignore-blank-lines
+    edit-config = !vim ~/.gitconfig
+
+    switch = !legit switch \"$@\"
 	branches = !legit branches
 	sprout = !legit sprout \"$@\"
 	unpublish = !legit unpublish \"$@\"
@@ -33,3 +36,7 @@
     editor = 'vim'
 [http]
 	sslVerify = true
+[push]
+	default = current
+[rerere]
+	enabled = true

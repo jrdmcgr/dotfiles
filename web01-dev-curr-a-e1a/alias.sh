@@ -13,7 +13,7 @@ trunctablegrep() {
     done
 }
 
-ddd() { 
+dump-data() { 
 	for args; do 
 		outfile=~/data/${args}-`date +%Y-%m-%d-%H:%M%S`.sql
 		latest=~/data/${args}-latest.sql
@@ -21,3 +21,27 @@ ddd() {
 		ln -fs $outfile $latest
 	done
 }
+
+load-latest() {
+    while (( "$#" )); do
+        if [[ ${1:0:1} == "-" ]]; then
+            INDEX=$1
+        else
+            DATABASE=$1
+        fi
+        shift
+    done
+    DATABASE=${DATABASE:-jmcguire}
+    IDX=${INDEX:1}
+    INDEX=${IDX:-1}
+    
+    DUMPS=(`ls ${HOME}/data/${DATABASE}-* | sort -r`)
+    LATEST=${DUMPS[$INDEX]}
+    
+    # echo "DATABASE: ${DATABASE}"
+    # echo "INDEX: ${INDEX}"
+    # echo "LATEST: ${LATEST}"
+
+    mysql $DATABASE < $LATEST
+}
+

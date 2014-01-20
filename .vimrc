@@ -2,6 +2,7 @@ set nocompatible                " be iMproved. Must be first line.
 syntax on
 color monokai
 
+set cursorline                  " Highlight the current line.
 set backspace=indent,eol,start  " Allow backspacing over everything in insert mode.
 set encoding=utf-8              " Use unicode for everything.
 set fillchars=vert:\            " Set the vertical split character to a space.
@@ -32,6 +33,21 @@ set smartcase                   " Case insensitive search unless uppercase chars
 set nobackup                    " Don't create backup files
 set noswapfile                  " Don't create swap files
 
+" Remove the deleay when pressing esc.
+" Using `set noesckeys` will work but this will diable the use of the arrow
+" keys.
+set timeoutlen=1000 ttimeoutlen=0
+
+
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+
 " -----------------------------------------------------------------------------
 "   Variables
 " -----------------------------------------------------------------------------
@@ -51,6 +67,7 @@ endif
 let g:LustyJugglerSuppressRubyWarning = 1  
 let NERDTreeMinimalUI = 1
 let g:Powerline_symbols = 'fancy'
+"let g:airline_powerline_fonts = 1
 let g:ackprg = 'ag --nogroup --nocolor --column'
 let g:python_highlight_all = 1
 
@@ -101,6 +118,7 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Lokaltog/vim-powerline'
+"Bundle 'bling/vim-airline'
 Bundle 'scrooloose/nerdtree'
 Bundle 'LustyJuggler'
 Bundle 'myusuf3/numbers.vim'
