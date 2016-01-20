@@ -16,18 +16,19 @@ PATH=$PATH:~/.cabal/bin  # Haskell
 PATH=$PATH:~/.composer/vendor/bin  # PHP
 export PATH
 
-export LC_COLLATE="C"  # Sort dotfiles first in `ls -la` output
-export PYTHONDONTWRITEBYTECODE=1  # Python won't write .pyc files
 # EDITOR is Sublime on Mac, vim on Linux
 if [ $(uname) = "Darwin" ]; then
     export EDITOR='subl -w'
 else
     export EDITOR='vim'
 fi
-export GITHUB_USER='jrdmcgr'
+
+export LC_COLLATE="C"  # Sort dotfiles first in `ls -la` output
+export PYTHONDONTWRITEBYTECODE=1  # Python won't write .pyc files
 export PYTHONPATH='/usr/local/lib/python2.7/site-packages'
 export NODE_PATH='/usr/local/share/npm/lib/node_modules'
-export HOMEBREW_GITHUB_API_TOKEN="c769af48ce7464baf787e1a74fa6c222223d2643"
+export GITHUB_USER='jrdmcgr'
+
 source `brew --prefix`/Library/Contributions/brew_bash_completion.sh
 
 
@@ -93,9 +94,12 @@ alias vpr='vagrant provision'
 
 # Mac Specific Aliases
 alias ip="ipconfig getifaddr en0"
-# Forward port 8080 to 80
 alias vbox='VBoxManage'
 alias cask="brew cask"
+
+# Project aliases
+alias cl='ssh clog'
+alias clsql='ssh clog "mysql vagrant"'
 
 
 # Source all .sh files in the given directory.
