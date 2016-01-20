@@ -1,98 +1,44 @@
 set nocompatible                " be iMproved. Must be first line.
 syntax on
 color monokai
-
 set cursorline                  " Highlight the current line.
-set backspace=indent,eol,start  " Allow backspacing over everything in insert mode.
+set backspace=indent,eol,start  " Allow backspacing over everything in insert mode
 set encoding=utf-8              " Use unicode for everything.
-set fillchars=vert:\            " Set the vertical split character to a space.
-set hidden                      " Allow buffer switchng without saving.
-set laststatus=2                " Always show the status bar. (for powerline)
+set fillchars=vert:\            " Set the vertical split character to a space
+set hidden                      " Allow buffer switchng without saving
 set mouse=a                     " Enable the mouse; clicking and scrolling
 set number                      " Turn on line numbers
-set term=screen-256color        " Enable 256 colors. 
-
-" Default tab settings
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab                   " Convert tabs to spaces.
+set term=screen-256color        " Enable 256 colors.
 set pastetoggle=<F2>            " Key to toggle auto indenting when pasting.
 set nowrap                      " Don't wrap long lines.
-
-" What do these do?
-set wildchar=<Tab> 
-set wildmenu 
-set wildmode=full
-
-" set clipboard=unnamedplus
-
 set ignorecase                  " Ignore case when searching.
 set smartcase                   " Case insensitive search unless uppercase chars are in the search string.
-
 set nobackup                    " Don't create backup files
 set noswapfile                  " Don't create swap files
 
 " Remove the deleay when pressing esc.
-" Using `set noesckeys` will work but this will diable the use of the arrow
-" keys.
-set timeoutlen=1000 ttimeoutlen=0
+set timeoutlen=1000
+set ttimeoutlen=0
 
-
-" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
-if executable('ag')
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
+" 4 space tabs
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
 
 " -----------------------------------------------------------------------------
 "   Variables
 " -----------------------------------------------------------------------------
 
-let mapleader = ','
+" Fat cursor when in normal mode and skinny cursor in insert mode
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
-" Block cursor in normal mode; Thin cursor in insert mode.
-if exists('$TMUX')
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
-
- " Don't complain if vim isn't compiled with ruby
-let g:LustyJugglerSuppressRubyWarning = 1  
-let NERDTreeMinimalUI = 1
-let g:Powerline_symbols = 'fancy'
-"let g:airline_powerline_fonts = 1
-let g:ackprg = 'ag --nogroup --nocolor --column'
 let g:python_highlight_all = 1
 
 " -----------------------------------------------------------------------------
 "   Key maps
 " -----------------------------------------------------------------------------
-
-" Toggle line numbers for selecting text from the terminal.        
-" nmap <F2> :set invnumber<CR>  
-nmap ; :
-imap jj <Esc>
-imap <S-Tab> <C-p>
-
-nmap <Leader>n :NERDTreeToggle<CR>
-
-" Buffer shortcuts
-nmap <Leader>bb :ls<CR>:buffer<Space> 
-nmap <Leader>bn :bn<CR>
-nmap <Leader>bp :bp<CR>
-nmap <Leader>bd :bd<CR>
-nmap <Leader>bdd :bd!<CR>
-
-" Quickly edit/reload the vimrc file
-nnoremap <Leader>ev :e $MYVIMRC<CR>
-nnoremap <Leader>sv :so $MYVIMRC<CR>
 
 " Move to beginning and end of line in insert mode.
 " These are the emacs keybindings that are ubiqitous on OS X.
@@ -103,58 +49,10 @@ inoremap <C-a> <Esc>I
 cmap w!! w !sudo tee % >/dev/null
 cmap x!! x !sudo tee % >/dev/null
 
-cmap Q q!
-
-
-" -----------------------------------------------------------------------------
-" Bundles
-" -----------------------------------------------------------------------------
-
-filetype off               " required by vundle.
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'Lokaltog/vim-powerline'
-"Bundle 'bling/vim-airline'
-Bundle 'scrooloose/nerdtree'
-Bundle 'LustyJuggler'
-Bundle 'myusuf3/numbers.vim'
-Bundle 'mileszs/ack.vim'
-Bundle 'kien/ctrlp.vim'
-Bundle 'vim-coffee-script'
-Bundle 'jelera/vim-javascript-syntax'
-Bundle 'python.vim'
-Bundle 'yaml.vim'
-Bundle 'saltstack/salt-vim'
-Bundle 'endwise.vim'
-Bundle 'jnwhiteh/vim-golang'
-
-" Bundle 'taglist.vim'
-" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Bundle 'Shougo/neocomplcache'
-" Bundle 'davidoc/taskpaper.vim'
-" Bundle 'troydm/easybuffer.vim'
-" Bundle 'spolu/dwm.vim'
-filetype plugin indent on  " required by vundle.
-
-
 " -----------------------------------------------------------------------------
 "   Interface Colors
 " -----------------------------------------------------------------------------
 
-" Line number color
-highlight LineNr ctermfg=8 ctermbg=bg
-
-" Improve vimdiff syntax highlighting. This isn't really a big improvement.
-highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black
-highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
-
+highlight LineNr ctermfg=8 ctermbg=bg " Line number color
 highlight NonText ctermfg=bg guifg=bg
-
-highlight VertSplit ctermbg=232
-
-
-
+highlight VertSplit ctermbg=232 " vertical split

@@ -1,42 +1,43 @@
 [user]
-	name = Jared McGuire
-	email = jrdmcgr@gmail.com
+name = Jared McGuire
+email = jrdmcgr@gmail.com
 
 [github]
-	user = jrdmcgr
+user = jrdmcgr
 
 [color]
-	diff = true
-	ui = auto
+diff = true
+ui = auto
 
 [alias]
-	st = !clear && git status
-	cm = commit
-	cmm = commit -m
-    cam = commit -am
-	br = branch
-	co = checkout
-	df = diff
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset' --abbrev-commit
-	timeline = log --oneline --graph --decorate
-	unstage = !git reset HEAD -- && clear && git status
-    weekly-report = log --author=Jared --oneline --no-merges --branches --since=1.week.ago
-    diff = diff --patience --ignore-space-at-eol --ignore-space-change --ignore-all-space --ignore-blank-lines
-    edit-config = !vim ~/.gitconfig
+st = status
+c = commit
+cm = commit -m
+br = branch
+co = checkout
+cb = checkout -b
+df = diff
+ds = diff --staged
+lg = log --oneline --graph --decorate
+p = pull --rebase
+ch = cherry-pick
+su = submodule update --init --recursive
+sd = submodule deinit -f .
+ec = !vim ~/.gitconfig
+weekly-report = log --author=Jared --oneline --no-merges --branches --since=1.week.ago
+edit-modified = !subl $(git status --porcelain --ignore-submodules | awk '{print $2}')
+undo = reset HEAD~1 --mixed
+root = rev-parse --show-toplevel
+unstage = reset HEAD
 
-    switch = !legit switch \"$@\"
-	branches = !legit branches
-	sprout = !legit sprout \"$@\"
-	unpublish = !legit unpublish \"$@\"
-	harvest = !legit harvest \"$@\"
-	sync = !legit sync \"$@\"
-	publish = !legit publish \"$@\"
-	graft = !legit graft \"$@\"
 [core]
-    editor = 'vim'
+editor = 'vim'
+
 [http]
-	sslVerify = true
+sslVerify = true
+
 [push]
-	default = current
+default = current
+
 [rerere]
-	enabled = true
+enabled = true

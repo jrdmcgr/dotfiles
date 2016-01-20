@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#
+# supertouch:
+#   Create a file and any intermediate directories.
+#   See http://stackoverflow.com/questions/9452935/
+
+readonly files="$@"
+for file in $files; do
+	mkdir -p -- "$(dirname "$file")"
+	touch -- "$file"
+done
