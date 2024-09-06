@@ -1,6 +1,6 @@
 [user]
-name = Jared McGuire
-email = jrdmcgr@gmail.com
+	name = Jared McGuire
+	email = jrdmcgr@gmail.com
 
 [github]
 user = jrdmcgr
@@ -19,8 +19,10 @@ cb = checkout -b
 df = diff
 ds = diff --staged
 lg = log --oneline --graph --decorate
+ll = log --oneline --graph --decorate master..HEAD
 p = pull --rebase
 ch = cherry-pick
+chc = cherry-pick --continue
 su = submodule update --init --recursive
 sd = submodule deinit -f .
 ec = !vim ~/.gitconfig
@@ -29,9 +31,15 @@ edit-modified = !subl $(git status --porcelain --ignore-submodules | awk '{print
 undo = reset HEAD~1 --mixed
 root = rev-parse --show-toplevel
 unstage = reset HEAD
+workprofile = config user.email "jmcguire2@laserspineinstitute.com"
+stats = diff --stat master..HEAD
+wtf = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d%C(auto,reset)\\ by\\ %C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)%n\\ %s%n" --stat
+tags = tag -n --sort='version:refname'
+authors = !git log --format='%aN' | sort -u
 
 [core]
 editor = 'vim'
+	autocrlf = input
 
 [http]
 sslVerify = true
@@ -40,4 +48,21 @@ sslVerify = true
 default = current
 
 [rerere]
-enabled = true
+;enabled = true
+
+[diff]
+tool = vimdiff
+
+[credential "https://git-codecommit.us-east-1.amazonaws.com"]
+helper = !aws codecommit credential-helper $@ 
+UseHttpPath = true
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[pull]
+	rebase = true
+[init]
+	defaultBranch = main
+[safe]
+	directory = /usr/local/Homebrew

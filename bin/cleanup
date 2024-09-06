@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Make a trash function
+# # make a tmp/Cleanup directory
+# # move cleaned up items to that dir
+# # move tmp/Cleanup to ~/.Trashes
+# Log actions
+# Trash Mail downloads
+# Trash Downloads folder
+# run brew cleanup
+# Trash screenshots
+
+# Potential cleanup
+# .npm dir
+#

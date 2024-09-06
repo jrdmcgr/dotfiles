@@ -1,0 +1,10 @@
+#!/bin/bash
+set -euo pipefail
+set -x
+
+
+git branch --merged >/tmp/merged-branches && \
+    vi /tmp/merged-branches && \
+    xargs git branch -d </tmp/merged-branches
+
+rm /tmp/merged-branches

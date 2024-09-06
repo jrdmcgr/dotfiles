@@ -1,0 +1,9 @@
+#!/bin/bash
+set -uo pipefail
+
+for branch in $(git branch -r --merged | grep -v 'origin/master' | sed 's/origin\///'); do 
+    # git push --delete origin $branch
+    if $(git branch | grep -q $branch); then
+        git branch -D $branch;
+    fi
+done

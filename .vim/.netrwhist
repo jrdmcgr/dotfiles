@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =6
+let g:netrw_dirhist_6='/private/etc/ssh'
+let g:netrw_dirhist_5='/Users/jared/.ssh'
+let g:netrw_dirhist_4='/Users/jared/Dropbox/Code/Informulate/indago/resources/js'
+let g:netrw_dirhist_3='/Users/jared/Dropbox/Code/Stanford/bewell/docker/build/overrides/apache'
+let g:netrw_dirhist_2='/Users/jared/Dropbox/Code/Stanford/bewell/docker/build/overrides'
+let g:netrw_dirhist_1='/Users/jared/Dropbox/Code/Stanford/bewell/docker/build'

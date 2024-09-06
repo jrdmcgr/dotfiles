@@ -1,115 +1,6 @@
-#!/bin/bash
-#
-# Environment
-#
-
-# History
-# don't put duplicate lines or lines starting with space in the history.
-HISTCONTROL=ignoreboth
-HISTSIZE=5000
-HISTFILESIZE=10000
-# shopt -s histappend # append, don't overwrite
-# shopt -s autocd
-
-
-# PATHs
-MYPATH=$HOME/bin
-MYPATH=$MYPATH:/usr/local/opt/ruby/bin  # Ruby
-MYPATH=$MYPATH:/usr/local/share/npm/bin  # Node
-MYPATH=$MYPATH:~/.cabal/bin  # Haskell
-MYPATH=$MYPATH:~/.composer/vendor/bin  # PHP
-MYPATH=$MYPATH:${GOPATH}/bin # Go
-MYPATH=$MYPATH:$HOME/Library/Python/3.9/bin # Python
-MYPATH=$MYPATH:/usr/local/opt/mysql-client/bin
-MYPATH=$MYPATH:/Users/jared/Library/Android/sdk/platform-tools
-MYPATH=$MYPATH:/Users/jared/Library/Android/sdk/cmdline-tools/latest/bin
-MYPATH=$MYPATH:/Users/jared/Library/Android/sdk/tools/bin
-MYPATH="$HOME/.jenv/bin:$MYPATH"
-MYPATH=$MYPATH:/usr/local/bin:/usr/local/sbin
-MYPATH=$MYPATH:/usr/bin:/usr/sbin:/bin:/sbin
-PATH="$MYPATH:$PATH"
-export PATH
-
-export ANDROID_SDK_ROOT="/Users/jared/Library/Android/sdk"
-export EDITOR="vim"
-export LC_COLLATE="C"  # Sort dotfiles first in `ls -la` output
-# export PYTHONDONTWRITEBYTECODE=1  # Python won't write .pyc files
-# export PYTHONPATH='/usr/local/lib/python2.7/site-packages'
-export NODE_PATH='/usr/local/share/npm/lib/node_modules'
-export GITHUB_USER='jrdmcgr'
-export GOPATH=$HOME/.go
-export FZF_DEFAULT_COMMAND="fd --type file --color=always"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS="--ansi"
-export DOTFILE_PATH="$HOME/Dropbox/Projects/Jared McGuire/Code/dotfiles"
-
-# Sources
-source "$DOTFILE_PATH/private.sh"
-# source /usr/local/opt/chruby/share/chruby/chruby.sh
-
-#
-# Prompt
-#
-
-#export PS1=' \[\e[0;32m\]⚡\[\e[0m\] '
-
-# Colors
-light_green="\[\e[1;32m\]"
-light_red="\[\e[1;31m\]"
-yellow="\[\e[0;33m\]"
-gray="\[\e[0;37m\]"
-reset="\[\e[m\]"
-
-# Customize prompt
-prompt_command() {
-  local status="$?"
-  local status_color=""
-  if [ $status != 0 ]; then
-    status_color=$light_red
-  else
-    status_color=$light_green
-  fi
-  export PS1="${status_color}⚡${reset} "
+d1() {
+    du -hd1 "$1"
 }
-export GIT_PS1_SHOWDIRTYSTATE=1
-export PROMPT_COMMAND=prompt_command
-
-
-#
-# Functions / Aliases
-#
-
-# Reload .bashrc
-alias rebash='source ~/.bashrc'
-if [ -f /usr/local/bin/lsd ]; then
-    alias ll='lsd -lA --group-dirs=first --date=+%m-%d-%Y'
-    alias tree='lsd --tree'
-else
-    alias ll='ls -lAFGh'
-fi
-
-# if [ -f $(which bat) ]; then
-#    alias cat='bat'
-# fi
-
-
-
-# alias +x="chmod +x"
-alias tlf="tail -f"
-alias fn="find . -iname"
-alias pse="ps -eo pid,user,command"
-alias sqlite="sqlite3"
-# alias ccat="pygmentize"
-alias serve="python -m http.server"
-alias d="date +%F"
-alias isodate="date +%FT%TZ"
-alias weather='curl http://wttr.in/lakeland,fl'
-alias p3='ping -c3'
-alias curlheaders="curl -LsSD - -o /dev/null"
-alias d1='du -hd1 | gsort -h'
-alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
-alias diga='dig +noall +answer'
-alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
 
 # Python Aliases
 #alias python='python3'
@@ -124,12 +15,11 @@ alias ppf='pip3 freeze -l > requirements.txt'
 alias ppr='pip3 install -r requirements.txt'
 
 # PHP Aliases
-alias phpsh='psysh'
-alias phpserve='php -S 0:9000'
+alias phpi='psysh'
+alias phps='php -S 0:9000'
 alias art='php artisan'
 alias ci='composer install'
 alias cu='composer update'
-alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
 
 # Vagrant Aliases
 alias v='vagrant'
@@ -142,20 +32,16 @@ alias vdf='vagrant destroy -f'
 alias vre='vagrant reload'
 alias vpr='vagrant provision'
 
-# Docker Aliases
-alias calc=/usr/bin/dc  # rewrite this alias
-alias dc='docker-compose'
+# Docker Compose Aliases
+alias d-c='docker-compose'
 alias dcdv='docker-compose -f docker-compose.yml -f docker-compose.db.yml up --detach --remove-orphans'
 alias dcup='docker-compose up'
 alias dcud='docker-compose up --detach'
-alias dcub='docker-compose up --build --detach --remove-orphans'
+alias dcub='docker-compose up --build --detach'
 alias dcex='docker-compose exec'
 alias dcdn='docker-compose down'
-alias dps="docker-pretty-ps"
 alias dex='docker exec -it'
 
-# Terraform aliases
-alias tf='terraform'
 
 # Node Aliases
 alias ni='npm install'
@@ -164,25 +50,25 @@ alias nis='npm install --save'
 
 
 # Mac Specific Aliases
-alias lan="ipconfig getifaddr en0"
-alias wan="curl ip.me"
-alias ip="lan;wan"
+alias ip="ipconfig getifaddr en0"
 alias vbox='VBoxManage'
+alias cask="brew cask"
 # Show/hide hidden files in Finder
-alias showfile="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hidefile="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 # Hide/show all desktop icons (useful when presenting)
-alias hidedesk="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
-alias showdesk="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
 
 # Config file shortcuts
 alias gitconfig='vim ~/.gitconfig'
 alias hosts='sudo vim /etc/hosts'
 alias bashrc='vim ~/.bashrc; source ~/.bashrc'
-alias private="vim $(echo $DOTFILE_PATH | sed -E 's/ /\\ /g')/private.sh"
+alias private='vim ~/Dropbox/Code/Config/dotfiles/private.sh'
 alias sshconfig='vim ~/.ssh/config'
 alias vimrc='vim ~/.vimrc'
-alias pubkey='cat ~/.ssh/id_rsa.pub | tee >(pbcopy)'
+alias diga='dig +noall +answer'
 
 # Ansible shortcuts
 function ansible-provision {
@@ -233,13 +119,6 @@ flushdns() {
     sudo killall -HUP mDNSResponder
 }
 
-
-# Python calculator
-py() {
-    python3 -c "from math import *; print($*)"
-}
-
-
 # Source all .sh files in the given directory.
 sourcedir() {
 	if [ -d $1 ]; then
@@ -249,7 +128,6 @@ sourcedir() {
 	fi
 }
 
-# Mac: quicklook a file
 ql() {
 	qlmanage -p "$@" >& /dev/null &
 }
@@ -282,7 +160,8 @@ findall() {
 }
 
 findlike() {
-    find . -iname "\*$1\*"
+    echo "*$1*"
+    find . -iname "*$1*"
 }
 
 # Edit a remote file with Sublime Text.
@@ -320,11 +199,6 @@ smv() {
     local dest="$2"
     local new=$(echo $src | sed -E "$dest")
     mv "$src" "$new"
-}
-
-# Sorted Disk Usage
-sdu() {
-    du -hd1 "$1" | sort -h
 }
 
 # link_dotfiles:
@@ -387,16 +261,9 @@ setup_z_completions() {
 }
 
 setup_brew_completions() {
-  if type brew &>/dev/null; then
-    HOMEBREW_PREFIX="$(brew --prefix)"
-    if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
-      source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
-    else
-      for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
-        [[ -r "$COMPLETION" ]] && source "$COMPLETION"
-      done
+    if [ -f $(brew --prefix)/etc/bash_completion ]; then
+        source $(brew --prefix)/etc/bash_completion
     fi
-  fi
 }
 
 # http://thirtysixthspan.com/posts/grep-history-for
@@ -422,19 +289,17 @@ function ghf {
   fi
 }
 
+fix_brew_permissions() {
+    sudo chown -R $(whoami) $(brew --prefix)/*
+}
+
+## Project Aliases
+alias indago-shell='ssh -t indago-prod "cd /srv/indago && docker exec -it indago_app_1 bash"'
+
 #
 # Setup
 #
 
-if [ -d ~/.bash_completion.d ]; then
-  for file in ~/.bash_completion.d/*; do
-    source $file
-  done
-fi
-
-# eval "$(jenv init -)"
-
-#setup_z_completions
-# archey -o
-
-. "$HOME/.cargo/env"
+setup_brew_completions
+setup_z_completions
+#archey -o

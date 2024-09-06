@@ -1,0 +1,2 @@
+#!/bin/bash
+open -a /Applications/Google\ Chrome.app/ 'https://www.google.com/maps/dir/Laser+Spine+Institute,+Avion+Park+Drive,+Tampa,+FL/8025+Ridgeglen+Circle+West,+Lakeland,+FL/@27.9985074,-82.3760169,11z/data=!3m1!4b1!4m13!4m12!1m5!1m1!1s0x88c2e9d734d06e91:0x17a8d9e96f82e4d4!2m2!1d-82.5340233!2d27.9581483!1m5!1m1!1s0x88dd4152769e8f37:0xd90771a093ea6dd9!2m2!1d-81.949743!2d28.14486'
