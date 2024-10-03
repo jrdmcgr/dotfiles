@@ -1,6 +1,0 @@
-#!/bin/bash
-set -euo pipefail
-set -x
-
-BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-open "https://app.assembla.com/spaces/eiprewrite/git-3/compare/eiprewrite.client:${BRANCH}...eiprewrite.client:develop?show_merge_request_form=true"

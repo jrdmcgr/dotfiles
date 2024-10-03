@@ -38,31 +38,40 @@ tags = tag -n --sort='version:refname'
 authors = !git log --format='%aN' | sort -u
 
 [core]
-editor = 'vim'
+	editor = 'nvim'
+	pager = 'delta'
 	autocrlf = input
 
+
 [http]
-sslVerify = true
+	sslVerify = true
 
 [push]
-default = current
+	default = current
 
 [rerere]
-;enabled = true
+	;enabled = true
 
-[diff]
-tool = vimdiff
-
-[credential "https://git-codecommit.us-east-1.amazonaws.com"]
-helper = !aws codecommit credential-helper $@ 
-UseHttpPath = true
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
+
 [pull]
 	rebase = true
+
 [init]
 	defaultBranch = main
-[safe]
-	directory = /usr/local/Homebrew
+
+[delta]
+	navigate = true
+	side-by-side = true
+
+[interactive]
+	diffFilter = delta --color-only
+
+[merge]
+	conflictStyle = diff3
+
+[diff]
+	colorMoved = default

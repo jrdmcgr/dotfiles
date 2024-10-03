@@ -1,15 +1,25 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
-# Make a trash function
-# # make a tmp/Cleanup directory
-# # move cleaned up items to that dir
-# # move tmp/Cleanup to ~/.Trashes
-# Log actions
-# Trash Mail downloads
-# Trash Downloads folder
-# run brew cleanup
-# Trash screenshots
+TODAY=$(date +%Y-%m-%d)
+TRASH="$HOME/.Trash/"
+CLEANUP="$TRASH/CLEANUP/$TODAY/"
 
-# Potential cleanup
-# .npm dir
-#
+if [ ! -d "$CLEANUP" ]; then
+    mkdir -p "$CLEANUP"
+fi
+
+function cleanup
+{
+    mv "$@" "$CLEANUP"
+}
+
+cleanup                       \
+    $HOME/.lesshst            \
+    $HOME/.python_history     \
+    $HOME/.viminfo            \
+    $HOME/.zcompdump          \
+    $HOME/.zsh_history        \
+    $HOME/.node_repl_history  \
+    $HOME/.pkg-cache/         \
+    $HOME/.zsh_sessions/      \
+    $HOME/.zcompcache/        

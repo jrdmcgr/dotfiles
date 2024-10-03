@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+#TODO: assert that gnu stow is installed
+#TODO: assert that dotfile repo is installed in ~/Code/dotfiles
+
+DOTFILE_PATH="$HOME/Code/dotfiles"
+cd "$DOTFILE_PATH"
+stow -t "$HOME" .
+cd -
+
+
