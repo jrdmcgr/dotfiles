@@ -1,0 +1,4 @@
+#!/bin/bash
+set -euo pipefail
+ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'
+
