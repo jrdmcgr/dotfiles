@@ -1,262 +1,194 @@
-#!/usr/bin/env python3
-#
-# Archey [version 0.3.0]
-#
-# Archey is a simple system information tool written in Python.
-#
-# Copyright 2010 Melik Manukyan <melik@archlinux.us>
-# Copyright 2010 David Vazgenovich Shakaryan <dvshakaryan@gmail.com>
-#
-# ASCII art by Brett Bohnenkamper <kittykatt@silverirc.com>
-# Changes Jerome Launay <jerome@projet-libre.org>
-# Fedora support by YeOK <yeok@henpen.org>
-#
-# Distributed under the terms of the GNU General Public License v3.
-# See http://www.gnu.org/licenses/gpl.txt for the full license text.
+#!/bin/bash
 
-# Import libraries
+# archey-osx 1.6.1 (https://github.com/obihann/archey-osx/)
 
-import os, sys, subprocess, optparse, re, linecache
-from subprocess import Popen, PIPE
-from optparse import OptionParser
-from getpass import getuser
-from time import ctime, sleep
+# test to see if bash supports arrays
+arraytest[0]='test' || (echo 'Error: Arrays are not supported in this version of
+bash.' && exit 2)
 
-#---------------Output---------------#
+# Detect the packager.
+if [ -x /usr/local/bin/brew ]; then
+  detectedpackager=homebrew
+elif command -v port >/dev/null; then
+  detectedpackager=macports
+else
+  detectedpackager=none
+fi
 
-output = [ 'User', 'Hostname', 'Distro', 'Kernel', 'Uptime', 'WindowManager', 'DesktopEnvironment', 'Shell', 'Terminal', 'Packages', 'CPU', 'RAM', 'Disk' ] 
- 
-#---------------Dictionaries---------------#
+# Get the command line options
+opt_nocolor=f
+opt_force_color=f
+opt_offline=f
+for arg in "$@"
+do
+  case "${arg}" in
+    -p|--packager)
+      packager=$detectedpackager
+      ;;
+    -m|--macports)
+      packager=macports
+      ;;
+    -b|--nocolor)
+      opt_nocolor=t
+      ;;
+    -c|--color)
+      opt_nocolor=f
+      opt_force_color=t
+      ;;
+    -o|--offline)
+        opt_offline=t
+        ;;
+    -l|--localip)
+		opt_localip=t
+      ;;
+    -h|--help)
+      echo "Archey OS X 1.6.1"
+      echo
+      echo "Usage: $0 [options]"
+      echo
+      echo "  -p --packager  Use auto detected package system (default packager: ${detectedpackager})."
+      echo "  -m --macports  Force use MacPorts as package system."
+      echo "  -b --nocolor   Turn color off."
+      echo "  -c --color     Force the color on (overrides --nocolor)."
+      echo "  -o --offline   Disable the IP address check."
+      echo "  -l --localip   Show local IP adddress"
+      exit 0
+      ;;
+    *)
+      echo "Unknown argument: $1" 1>&2
+      echo "For help, use: $0 --help" 1>&2
+      exit 1
+      ;;
+  esac
+done
 
-colorDict = {
-	'Arch Linux': ['\x1b[0;34m', '\x1b[1;34m'],
-	'Ubuntu': ['\x1b[0;31m', '\x1b[1;31m', '\x1b[0;33m'],
-	'Debian': ['\x1b[0;31m', '\x1b[1;31m'],
-	'Mint': ['\x1b[0;32m', '\x1b[1;37m'],
-	'Crunchbang': ['\x1b[1;37m'],
-	'Fedora': ['\x1b[0;34m', '\x1b[1;37m'],
-	'Sensors': ['\x1b[0;31m', '\x1b[0;32m', '\x1b[0;33m'], 
-	'Clear': ['\x1b[0m']
-	}
-	
-deDict = {
-	'cinnamon-sessio': 'Cinnamon',
-	'gnome-session': 'GNOME',
-	'mate-session': 'MATE',
-	'ksmserver': 'KDE',
-	'xfce4-session': 'Xfce',
-	'lxsession': 'LXDE'
-	}
+# System Variables
+user=$(whoami)
+hostname=$(hostname | sed 's/.local//g')
 
-wmDict = {
-	'awesome': 'Awesome',
-	'beryl': 'Beryl',
-	'blackbox': 'Blackbox',
-	'compiz': 'Compiz',
-	'dwm': 'DWM',
-	'enlightenment': 'Enlightenment',
-	'herbstluftwm': 'herbstluftwm',
-	'fluxbox': 'Fluxbox',
-	'fvwm': 'FVWM',
-	'i3': 'i3',
-	'icewm': 'IceWM',
-	'kwin': 'KWin',
-	'metacity': 'Metacity',
-	'musca': 'Musca',
-	'nemo': 'Nemo',
-	'openbox': 'Openbox',
-	'pekwm': 'PekWM',
-	'ratpoison': 'ratpoison',
-	'scrotwm': 'ScrotWM',
-	'wmaker': 'Window Maker',
-	'wmfs': 'Wmfs',
-	'wmii': 'wmii',
-	'xfwm4': 'Xfwm',
-	'xmonad': 'xmonad'
-	}
+# v4 and v6 address detection
+if [[ "${opt_offline}" = f ]]; then
+    ipfile4="${HOME}/.archey-ipv4"
+    ipfile6="${HOME}/.archey-ipv6"
+    if [ -a "$ipfile4" ] && test `find "$ipfile4" -mmin -360`; then
+        while read -r line; do
+            V4="$line"
+        done < "$ipfile4"
+    else
+        if V4=$(curl -sS --max-time 5 https://4.ifcfg.me/ 2>/dev/null); then
+            echo $V4 > "$ipfile4"
+        fi
+    fi
+    if [ -a "$ipfile6" ] && test `find "$ipfile6" -mmin -360`; then
+        while read -r line; do
+            V6="$line"
+        done < "$ipfile6"
+    else
+        if V6=$(curl -sS --max-time 5 https://6.ifcfg.me/ 2>/dev/null); then
+            echo $V6 > "$ipfile6"
+        fi
+    fi
+fi
 
-logosDict = {'Arch Linux': '''{color[1]}
-{color[1]}               +                {results[0]}
-{color[1]}               #                {results[1]}
-{color[1]}              ###               {results[2]}
-{color[1]}             #####              {results[3]}
-{color[1]}             ######             {results[4]}
-{color[1]}            ; #####;            {results[5]}
-{color[1]}           +##.#####            {results[6]}
-{color[1]}          +##########           {results[7]}
-{color[1]}         ######{color[0]}#####{color[1]}##;         {results[8]}
-{color[1]}        ###{color[0]}############{color[1]}+        {results[9]}
-{color[1]}       #{color[0]}######   #######        {results[10]}
-{color[0]}     .######;     ;###;`\".      {results[11]}
-{color[0]}    .#######;     ;#####.       {results[12]}
-{color[0]}    #########.   .########`     {results[13]}
-{color[0]}   ######'           '######    {results[14]}
-{color[0]}  ;####                 ####;   {results[15]}
-{color[0]}  ##'                     '##   {results[16]} 
-{color[0]} #'                         `#  {results[17]}
-\x1b[0m'''
-}
+if [[ "${opt_localip}" = t ]]; then
+	# Get the interface used for the default route
+	activeadapter=$(route -n get 0.0.0.0 | awk '/interface: / {print $2}')
+	# Now get the IP address assigned to that interface
+	localip=$(ifconfig ${activeadapter} | awk '/inet / {print $2}')
+fi
 
-processes = str(subprocess.check_output(('ps', '-u', getuser(), '-o', 'comm',
-	'--no-headers')), encoding='utf8').rstrip('\n').split('\n')
+distro="macOS $(sw_vers -productVersion)"
+kernel=$(uname)
+uptime=$(uptime 2> /dev/null | sed -e 's/.*up\s*//' -e 's/,\s*[0-9]* user.*//')
+shell="$SHELL"
+terminal="$TERM ${TERM_PROGRAM//_/ }"
+cpu=$(sysctl -n machdep.cpu.brand_string)
+battery=$(ioreg -c AppleSmartBattery -r | awk '$1~/Capacity/{c[$1]=$3} END{OFMT="%.2f%"; max=c["\"MaxCapacity\""]; if (max>0) { print 100*c["\"CurrentCapacity\""]/max;} }')
 
-#---------------Classes---------------#
+# removes (R) and (TM) from the CPU name so it fits in a standard 80 window
+cpu=$(echo "$cpu" | awk '$1=$1' | sed 's/([A-Z]\{1,2\})//g')
 
-class Output:
-	results = []
-	results.extend(['']*(18-len(output)))
-	
-	def __init__(self):
-		self.distro = self.__detectDistro()
-		
-	def __detectDistro(self):
-		if os.path.exists('/etc/pacman.conf'):
-			return 'Arch Linux'
-		else:
-			sys.exit(1)
-			
-	def append(self, display):
-		self.results.append('%s%s: %s%s' % (colorDict[self.distro][1], display.key, colorDict['Clear'][0], display.value))
-		
-	def output(self):
-		print(logosDict[self.distro].format(color = colorDict[self.distro], results = self.results))
-			
-class User:
-	def __init__(self):
-		self.key = 'User'
-		self.value = os.getenv('USER')
+ram="$(( $(sysctl -n hw.memsize) / 1024 ** 3  )) GB"
+disk=$(df | head -2 | tail -1 | awk '{print $5}')
 
-class Hostname:
-	def __init__(self):
-		hostname = Popen(['uname', '-n'], stdout=PIPE).communicate()[0].decode('Utf-8').rstrip('\n')
-		self.key = 'Hostname'
-		self.value = hostname
-			
-class Distro:
-	def __init__(self):
-		if os.path.exists('/etc/pacman.conf'):
-			distro =  'Arch Linux'
-		self.key = 'Distro'
-		self.value = distro
-			
-class Kernel:
-	def __init__(self):
-		kernel = Popen(['uname', '-r'], stdout=PIPE).communicate()[0].decode('Utf-8').rstrip('\n')
-		self.key = 'Kernel'
-		self.value = kernel
-			
-class Uptime:		
-	def __init__(self):
-		fuptime = int(open('/proc/uptime').read().split('.')[0])
-		day = int(fuptime / 86400)
-		fuptime = fuptime % 86400
-		hour = int(fuptime / 3600)
-		fuptime = fuptime % 3600
-		minute = int(fuptime / 60)
-		uptime = ''
-		if day == 1:
-			uptime += '%d day, ' % day
-		if day > 1:
-			uptime += '%d days, ' % day
-		uptime += '%d:%02d' % (hour, minute)
-		self.key = 'Uptime'
-		self.value = uptime
-	
-class WindowManager:
-	def __init__(self):
-		wm = ''
-		for key in wmDict.keys():
-			if key in processes:
-				wm = wmDict[key]
-				break
-					
-		self.key = 'Window Manager'
-		self.value = wm
-			
-class DesktopEnvironment:
-	def __init__(self):
-		de = ''
-		for key in deDict.keys():
-			if key in processes:
-				de = deDict[key]
-				break
-					
-		self.key = 'Desktop Environment'
-		self.value = de
-			
-class Shell:
-	def __init__(self):
-		self.key = 'Shell'
-		self.value = os.getenv('SHELL')
-			
-class Terminal:
-	def __init__(self):
-		self.key = 'Terminal'
-		self.value = os.getenv('TERM')
-			
-class Packages:
-	def __init__(self):
-		p1 = Popen(['pacman', '-Q'], stdout=PIPE).communicate()[0].decode("Utf-8")
-		packages = len(p1.rstrip('\n').split('\n'))
-		self.key = 'Packages'
-		self.value = packages
-		
-class CPU:
-    def __init__(self):
-        file = open('/proc/cpuinfo').readlines()
-        cpuinfo = re.sub('  +', ' ', file[4].replace('model name\t: ', '').rstrip('\n'))
-        self.key = 'CPU'
-        self.value = cpuinfo
 
-class RAM:
-	def __init__(self):
-		raminfo = Popen(['free', '-m'], stdout=PIPE).communicate()[0].decode('Utf-8').split('\n')
-		ram = ''.join(filter(re.compile('M').search, raminfo)).split()
-		used = int(ram[1]) - int(ram[5]) - int(ram[6])
-		usedpercent = ((float(used) / float(ram[1])) * 100)
-		if usedpercent <= 33:
-			ramdisplay = '%s%s MB %s/ %s MB' % (colorDict['Sensors'][1], used, colorDict['Clear'][0], ram[1])
-		if usedpercent > 33 and usedpercent < 67:
-			ramdisplay = '%s%s MB %s/ %s MB' % (colorDict['Sensors'][2], used, colorDict['Clear'][0], ram[1])
-		if usedpercent >= 67:
-			ramdisplay = '%s%s MB %s/ %s MB' % (colorDict['Sensors'][0], used, colorDict['Clear'][0], ram[1])
-		self.key = 'RAM'
-		self.value = ramdisplay
-			
-class Disk:
-    def __init__(self):
-        p1 = Popen(['df', '-Tlh', '--total', '-t', 'ext4', '-t', 'ext3', '-t', 'ext2', '-t', 'reiserfs', '-t', 'jfs', '-t', 'ntfs', '-t', 'fat32', '-t', 'btrfs', '-t', 'fuseblk', '-t', 'xfs'], stdout=PIPE).communicate()[0].decode("Utf-8")
-        total = p1.splitlines()[-1]
-        used = total.split()[3]
-        size = total.split()[2]
-        usedpercent = float(total.split()[5][:-1])
-        
-        if usedpercent <= 33:
-            disk = '%s%s %s/ %s' % (colorDict['Sensors'][1], used, colorDict['Clear'][0], size)  
-        if usedpercent > 33 and usedpercent < 67:  
-            disk = '%s%s %s/ %s' % (colorDict['Sensors'][2], used, colorDict['Clear'][0], size)  
-        if usedpercent >= 67:
-            disk = '%s%s %s/ %s' % (colorDict['Sensors'][0], used, colorDict['Clear'][0], size)  
-        self.key = 'Disk'
-        self.value = disk
+# Set up colors if:
+# * stdout is a tty
+# * the user hasn't turned it off
+# * or if we're forcing color
+if [[ ( -t 1  && "${opt_nocolor}" = f) || "${opt_force_color}" = t ]]
+then
+  RED=$(tput       setaf 1 2>/dev/null)
+  GREEN=$(tput     setaf 2 2>/dev/null)
+  YELLOW=$(tput    setaf 3 2>/dev/null)
+  BLUE=$(tput      setaf 4 2>/dev/null)
+  PURPLE=$(tput    setaf 5 2>/dev/null)
+  textColor=$(tput setaf 6 2>/dev/null)
+  normal=$(tput    sgr0 2>/dev/null)
+fi
 
-classes = {
- 'User': User,
- 'Hostname': Hostname,
- 'Distro': Distro,
- 'Kernel': Kernel,
- 'Uptime': Uptime,
- 'WindowManager': WindowManager,
- 'DesktopEnvironment': DesktopEnvironment,
- 'Shell': Shell,
- 'Terminal': Terminal,
- 'Packages': Packages,
- 'CPU': CPU,
- 'RAM': RAM,
- 'Disk': Disk
- }
+case "${packager}" in
+  homebrew)
+    packagehandler=$(brew list -1 | wc -l | awk '{print $1 }')
+    ;;
+  macports)
+    packagehandler=$(port installed | wc -l | awk '{print $1 }')
+    ;;
+  *)
+    packagehandler=0
+    ;;
+esac
 
-out = Output()
-for x in output:
-	out.append(classes[x]())
-out.output()
+fieldlist[${#fieldlist[@]}]="${textColor}User:${normal} ${user}${normal}"
+fieldlist[${#fieldlist[@]}]="${textColor}Hostname:${normal} ${hostname}${normal}"
+fieldlist[${#fieldlist[@]}]="${textColor}Distro:${normal} ${distro}${normal}"
+fieldlist[${#fieldlist[@]}]="${textColor}Kernel:${normal} ${kernel}${normal}"
+fieldlist[${#fieldlist[@]}]="${textColor}Uptime:${normal} ${uptime}${normal}"
+fieldlist[${#fieldlist[@]}]="${textColor}Shell:${normal} ${shell}${normal}"
+fieldlist[${#fieldlist[@]}]="${textColor}Terminal:${normal} ${terminal}${normal}"
+if [ ${packagehandler} -ne 0 ]; then
+    fieldlist[${#fieldlist[@]}]="${textColor}Packages:${normal} ${packagehandler}${normal}"
+fi
+fieldlist[${#fieldlist[@]}]="${textColor}CPU:${normal} ${cpu}${normal}"
+fieldlist[${#fieldlist[@]}]="${textColor}Memory:${normal} ${ram}${normal}"
+fieldlist[${#fieldlist[@]}]="${textColor}Disk:${normal} ${disk}${normal}"
+if [[ ! -z $battery ]]; then
+    fieldlist[${#fieldlist[@]}]="${textColor}Battery:${normal} ${battery}%${normal}"
+fi
+# Texts had to be shortend to fit in 80 window
+if [ "${opt_offline}" = f ]; then
+    if [ ! -z "$V4" ]; then
+      fieldlist[${#fieldlist[@]}]="${textColor}IPv4:${normal} ${V4}${normal}"
+    fi
+    if [ ! -z "$V6" ]; then
+      fieldlist[${#fieldlist[@]}]="${textColor}IPv6:${normal} ${V6}${normal}"
+    fi
+fi
+if [ "${opt_localip}" = t ]; then
+	fieldlist[${#fieldlist[@]}]="${textColor}Local IP:${normal} ${localip}${normal}"
+fi
+
+logofile=${ARCHEY_LOGO_FILE:-"${HOME}/.config/archey-logo"}
+if [ -a "$logofile" ]
+  then
+  source "$logofile"
+else
+# The ${foo#  } is a cheat so that it lines up here as well
+# as when run.
+  echo -e "
+${GREEN#  }                 ###               ${fieldlist[0]}
+${GREEN#  }               ####                ${fieldlist[1]}
+${GREEN#  }               ###                 ${fieldlist[2]}
+${GREEN#  }       #######    #######          ${fieldlist[3]}
+${YELLOW# }     ######################        ${fieldlist[4]}
+${YELLOW# }    #####################          ${fieldlist[5]}
+${RED#    }    ####################           ${fieldlist[6]}
+${RED#    }    ####################           ${fieldlist[7]}
+${RED#    }    #####################          ${fieldlist[8]}
+${PURPLE# }     ######################        ${fieldlist[9]}
+${PURPLE# }      ####################         ${fieldlist[10]}
+${BLUE#   }        ################           ${fieldlist[11]}
+${BLUE#   }         ####     #####            ${fieldlist[12]}
+${normal}
+"
+fi
