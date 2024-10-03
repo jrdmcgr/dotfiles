@@ -138,7 +138,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_OPTS="--preview 'lsd --tree --color=always {} | head -200'"
 export FZF_DEFAULT_OPTS="--ansi"
 source <(fzf --zsh) # keybindings and completions
-source $XDG_CONFIG_HOME/fzf-git.sh/fzf-git.sh
+source $XDG_CONFIG_HOME/fzf-git.sh
 
 # 
 # Configuration
