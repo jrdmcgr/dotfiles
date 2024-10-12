@@ -341,4 +341,4 @@ bun-completions
 eval "$(zoxide init zsh --cmd cd)"
 
 # Login Data
-archey -o
+# archey -o
