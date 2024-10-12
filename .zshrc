@@ -251,7 +251,20 @@ function inspect
     (head -5; tail -5) < $1
 }
 
-alias x="chmod +x"
+
+function execute {
+    local file="$1"
+    if [ ! -x $file ]; then
+        chmod +x $file
+    fi
+    if [[ $1 =~ / ]]; then
+        $1
+    else
+        ./$1
+    fi
+}
+alias x='execute'
+
 alias isodate="date +%F"
 alias isotime="date +%FT%TZ"
 alias sqlite="sqlite3"
