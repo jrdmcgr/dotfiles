@@ -81,9 +81,12 @@ PATH="$PATH:$BREW_ROOT/bin"
 PATH="$PATH:$BREW_ROOT/sbin"
 PATH="$PATH:/usr/local/bin:/usr/local/sbin"
 PATH="$PATH:/usr/bin:/usr/sbin:/bin:/sbin"
-PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
-export PATH
 
+PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
+PATH="$PATH:/usr/local/share/dotnet"
+PATH="$PATH:$HOME/.dotnet/tools"
+
+export PATH
 
 
 #
