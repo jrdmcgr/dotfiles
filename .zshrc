@@ -81,8 +81,10 @@ PATH="$PATH:$BREW_ROOT/bin"
 PATH="$PATH:$BREW_ROOT/sbin"
 PATH="$PATH:/usr/local/bin:/usr/local/sbin"
 PATH="$PATH:/usr/bin:/usr/sbin:/bin:/sbin"
-
 PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
+# devcontainer cli
+PATH="$PATH:$HOME/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
+
 PATH="$PATH:/usr/local/share/dotnet"
 PATH="$PATH:$HOME/.dotnet/tools"
 
@@ -176,7 +178,6 @@ alias pubkey="cat ~/.ssh/id_rsa.pub | tee >(pbcopy)"
 
 # Github
 export GITHUB_USER='jrdmcgr'
-#NOTE: Github key is in private.sh
 
 
 # Python
