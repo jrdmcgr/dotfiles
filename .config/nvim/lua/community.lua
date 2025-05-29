@@ -10,6 +10,5 @@ return {
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.python" },
   { import = "astrocommunity.pack.php" },
-  --  { import = "astrocommunity.pack.javascript" },
-  -- import/override with your plugins folder
+  { import = "astrocommunity.pack.javascript" },
 }
