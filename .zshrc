@@ -117,10 +117,9 @@ fi
 
 # cat => bat
 if exists bat; then 
+    export BAT_THEME="Monokai Extended"
     alias cat='bat'
 fi
-
-export BAT_THEME="Monokai Extended"
 
 # du => dust
 if exists dust; then 
@@ -138,12 +137,14 @@ if exists duf; then
 fi
 
 # Fuzzy Finder `fzf`
-export FZF_DEFAULT_COMMAND="fd --type file --color=always"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_OPTS="--preview 'lsd --tree --color=always {} | head -200'"
-export FZF_DEFAULT_OPTS="--ansi"
-source <(fzf --zsh) # keybindings and completions
-source $XDG_CONFIG_HOME/fzf-git.sh
+if exists fzf; then
+    export FZF_DEFAULT_COMMAND="fd --type file --color=always"
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_OPTS="--preview 'lsd --tree --color=always {} | head -200'"
+    export FZF_DEFAULT_OPTS="--ansi"
+    source <(fzf --zsh) # keybindings and completions
+    source $XDG_CONFIG_HOME/fzf-git.sh
+fi
 
 # 
 # Configuration
@@ -331,9 +332,12 @@ alias tt="tab-title"
 #
 # Prompt
 #
-
-eval "$(starship init zsh)"
-
+if exists starship; then
+    eval "$(starship init zsh)"
+else
+    # Fallback to default prompt if starship is not installed
+    PROMPT='> '
+fi
 
 
 #
@@ -342,7 +346,10 @@ eval "$(starship init zsh)"
 
 brew-completions
 bun-completions
-eval "$(zoxide init zsh --cmd cd)"
+
+if exists zoxide; then
+    eval "$(zoxide init zsh --cmd cd)"
+fi
 
 # Login Data
 # archey -o

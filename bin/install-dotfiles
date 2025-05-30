@@ -1,11 +1,20 @@
 #!/usr/bin/env zsh
 
-#TODO: assert that gnu stow is installed
-#TODO: assert that dotfile repo is installed in ~/Code/dotfiles
+function sanity-check {
+    if [ ! "$PWD/.." -eq "$HOME/Code/dotfiles" ]; then
+        echo "Error: This script should be installed as ~/Code/dotfiles/bin/install-dotfiles"
+        exit 1
+    fi
 
-DOTFILE_PATH="$HOME/Code/dotfiles"
+    if ! command -v stow &> /dev/null; then
+        echo "Error: GNU Stow is not installed. Please install it first."
+        exit 1
+    fi
+}
+
+
+DOTFILE_PATH="$PWD/.."
+
 cd "$DOTFILE_PATH"
-stow -t "$HOME" .
+/opt/homebrew/bin/stow -t "$HOME" .
 cd -
-
-
