@@ -168,6 +168,11 @@ alias hosts="sudo $EDITOR /etc/hosts"
 alias zshrc="edit ~/.zshrc; source ~/.zshrc"
 alias sshconfig="edit ~/.ssh/config"
 
+function vimconfig() {
+    cd ~/dotfiles
+    $EDITOR ~/.config/nvim/lua/plugins/user.lua
+}
+
 # Copy + print SSH public key
 alias pubkey="cat ~/.ssh/id_rsa.pub | tee >(pbcopy)"
 
