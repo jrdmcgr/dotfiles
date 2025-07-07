@@ -63,7 +63,7 @@ function brew-completions
 {
     if type brew &>/dev/null
     then
-        FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+        fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
         autoload -Uz compinit
         compinit
     fi
@@ -79,16 +79,30 @@ function brew-completions
 PATH="$HOME/bin"
 PATH="$PATH:$BREW_ROOT/bin"
 PATH="$PATH:$BREW_ROOT/sbin"
+
 PATH="$PATH:/usr/local/bin:/usr/local/sbin"
 PATH="$PATH:/usr/bin:/usr/sbin:/bin:/sbin"
+
+# PHP: Global tools installed with `composer global require`
+PATH="$PATH:$HOME/.config/composer/vendor/bin"
+
+# MySQL: installed with `brew`
 PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
+
+# VSCode
 # devcontainer cli
 PATH="$PATH:$HOME/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
 
+# dotnet
 PATH="$PATH:/usr/local/share/dotnet"
 PATH="$PATH:$HOME/.dotnet/tools"
 
 export PATH
+
+
+# Source secrets if exists
+SECRETS="$HOME/.config/secrets.env"
+test -f $SECRETS && source $SECRETS
 
 
 #
@@ -358,3 +372,8 @@ fi
 
 # Login Data
 # archey -o
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/JaredMcGuire/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions

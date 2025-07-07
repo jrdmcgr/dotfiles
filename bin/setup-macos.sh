@@ -1,6 +1,10 @@
 #!/bin/bash
-# macos-setup.sh
 set -euo pipefail
+
+#
+# See https://macos-defaults.com/
+#
+
 
 # Dock Settings
 defaults write com.apple.dock "autohide" -bool "true"
@@ -35,13 +39,19 @@ killall Finder
 
 # Menu Clock
 
-❯ defaults read com.apple.menuextra.clock
-{
-    FlashDateSeparators = 0;
-    ShowAMPM = 0;
-    ShowDate = 2;
-    ShowDayOfWeek = 0;
-    ShowSeconds = 1;
-}
+# ❯ defaults read com.apple.menuextra.clock
+# {
+#     FlashDateSeparators = 0;
+#     ShowAMPM = 0;
+#     ShowDate = 2;
+#     ShowDayOfWeek = 0;
+#     ShowSeconds = 1;
+# }
 
-com.apple.menuextra.clock
+defaults write com.apple.menuextra.clock "ShowAMPM" -bool "false"
+defaults write com.apple.menuextra.clock "ShowSeconds" -bool "true"
+defaults write com.apple.menuextra.clock "ShowDate" -int "2"
+defaults write com.apple.menuextra.clock "ShowDayOfWeek" -bool "false"
+
+defaults write NSGlobalDomain AppleKeyboardUIMode -int "2"
+defaults write com.apple.LaunchServices "LSQuarantine" -bool "false"
