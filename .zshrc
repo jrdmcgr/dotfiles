@@ -37,6 +37,9 @@ export XDG_STATE_HOME="$HOME/.local/state"
 
 export LESSHISTFILE="$XDG_CACHE_HOME/lesshst"
 
+# Source private vars
+SECRETS="$HOME/.config/secrets.env"
+test -f $SECRETS && source $SECRETS
 
 
 #
@@ -370,6 +373,8 @@ if exists zoxide; then
     eval "$(zoxide init zsh --cmd cd)"
 fi
 
+# vim mode
+bindkey -v
 # Login Data
 # archey -o
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.

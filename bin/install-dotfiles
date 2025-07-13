@@ -1,18 +1,6 @@
 #!/usr/bin/env zsh
 
-function sanity-check {
-    if [ ! "$PWD/.." -eq "$HOME/Code/dotfiles" ]; then
-        echo "Error: This script should be installed as ~/Code/dotfiles/bin/install-dotfiles"
-        exit 1
-    fi
-
-    if ! command -v stow &> /dev/null; then
-        echo "Error: GNU Stow is not installed. Please install it first."
-        exit 1
-    fi
-}
-
-
+// TODO: ensure `stow` is installed
 DOTFILE_PATH="$PWD/.."
 
 cd "$DOTFILE_PATH"
