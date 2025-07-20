@@ -39,7 +39,7 @@ export LESSHISTFILE="$XDG_CACHE_HOME/lesshst"
 
 # Source private vars
 SECRETS="$HOME/.config/secrets.env"
-test -f $SECRETS && source $SECRETS
+test -f $SECRETS && 
 
 
 #
@@ -126,7 +126,7 @@ function exists
 export LC_COLLATE="C"  # Sort dotfiles first in `ls -la` output
 
 if exists lsd; then 
-    alias ll='lsd -lA --group-dirs=first --date=+%m-%d-%Y'
+    alias ll='lsd -lA --group-dirs=first --date=+%Y-%m-%d'
     alias tree='lsd --tree'
 else 
     alias ll='ls -lAFGh'
