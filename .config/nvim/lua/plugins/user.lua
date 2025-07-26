@@ -1,11 +1,5 @@
--- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
--- You can also add or configure plugins by creating files in this `plugins/` folder
--- Here are some examples:
-
 ---@type LazySpec
 return {
-
   {
     "github/copilot.vim",
     event = "InsertEnter",
@@ -15,15 +9,37 @@ return {
       vim.api.nvim_set_keymap("i", "<C-K>", "copilot#Dismiss()", { expr = true, silent = true })
     end,
   },
-  -- == Examples of Adding Plugins ==
-
-  --  "andweeb/presence.nvim",
-  --  {
-  --    "ray-x/lsp_signature.nvim",
-  --    event = "BufRead",
-  --    config = function() require("lsp_signature").setup() end,
-  --  },
-
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      window = {
+        position = "right", -- This sets the explorer to the right side
+      },
+    },
+  },
+  {
+    "loctvl842/monokai-pro.nvim",
+    lazy = false, -- Load the plugin immediately (disable lazy loading for colorschemes)
+    priority = 9000, -- Ensure this plugin loads before other UI configurations
+    config = function()
+      require("monokai-pro").setup {
+        filter = "classic", -- You can change this to 'octagon', 'machine', etc.
+        transparent_background = false, -- Customize as needed
+      }
+      -- Set Monokai Pro as your colorscheme
+      vim.cmd "colorscheme monokai-pro"
+    end,
+  },
+  {
+    "S1M0N38/love2d.nvim",
+    cmd = "LoveRun",
+    opts = {},
+    keys = {
+      { "<leader>v", ft = "lua", desc = "LÖVE" },
+      { "<leader>vv", "<cmd>LoveRun<cr>", ft = "lua", desc = "Run LÖVE" },
+      { "<leader>vs", "<cmd>LoveStop<cr>", ft = "lua", desc = "Stop LÖVE" },
+    },
+  },
   -- == Examples of Overriding Plugins ==
 
   -- customize alpha options
