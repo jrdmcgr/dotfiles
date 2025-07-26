@@ -10,3 +10,6 @@ gh repo create "$1" \
   --disable-wiki \
   --disable-issues \
   --clone
+
+cd $1
+
