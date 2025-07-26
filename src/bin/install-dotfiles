@@ -1,8 +1,0 @@
-#!/usr/bin/env zsh
-
-// TODO: ensure `stow` is installed
-DOTFILE_PATH="$PWD/.."
-
-cd "$DOTFILE_PATH"
-/opt/homebrew/bin/stow -t "$HOME" .
-cd -
