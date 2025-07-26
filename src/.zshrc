@@ -374,11 +374,14 @@ if exists zoxide; then
 fi
 
 # vim mode
-bindkey -v
-# Login Data
+# bindkey -v
+
 # archey -o
+
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/JaredMcGuire/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
+
+#fpath=(/Users/JaredMcGuire/.docker/completions $fpath)
+#autoload -Uz compinit
+#compinit
+
 # End of Docker CLI completions
