@@ -69,7 +69,7 @@ function casks
 # PATH
 #
 
-PATH="$HOME/bin"
+PATH="$HOME/Code/dotfiles/bin"
 PATH="$PATH:$BREW_ROOT/bin"
 PATH="$PATH:$BREW_ROOT/sbin"
 
