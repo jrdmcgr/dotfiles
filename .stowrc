@@ -1,0 +1,6 @@
+--verbose
+--target=$HOME
+--ignore=dot-vim
+--ignore=dot-vimrc
+--dotfiles
+
