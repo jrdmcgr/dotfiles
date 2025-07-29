@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# vim: filetype=bash noexpandtab tabstop=2 shiftwidth=2
+
+set -euo pipefail
+
+set -x
+
+function usage
+{
+  echo "Usage: $0 <file_name>" >&2
+  exit 1
+}
+
+function main
+{
+	[ $# -lt 1 ] && usage
+	local dir
+	dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"  
+  local template="${dir}/../etc/template.bash"
+  local file_path="${dir}/${1}"
+	cp "$template" "$file_path" 
+	chmod +x  "$file_path"
+	vim "$file_path"
+}
+
+main "$@"
