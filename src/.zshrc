@@ -62,16 +62,6 @@ function casks
     brew list --cask | xargs brew desc --cask
 }
 
-function brew-completions
-{
-    if type brew &>/dev/null
-    then
-        fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
-        autoload -Uz compinit
-        compinit
-    fi
-}
-
 
 
 
@@ -227,11 +217,7 @@ function venv
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-
-function bun-completions
-{
-    [ -s "/Users/jrdmcgr/.bun/_bun" ] && source "/Users/jrdmcgr/.bun/_bun"
-}
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # npm
 alias ni='npm install'
@@ -350,6 +336,13 @@ function tab-title
 alias tt="tab-title"
 
 
+#
+# Apps
+#
+
+alias claude="/Users/JaredMcGuire/.claude/local/claude"
+
+
 
 #
 # Prompt
@@ -366,22 +359,16 @@ fi
 # Setup
 #
 
-brew-completions
-bun-completions
+# fpath + completions
+fpath=($HOME/.docker/completions $fpath)
+fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
+autoload -Uz compinit
+compinit
+
 
 if exists zoxide; then
     eval "$(zoxide init zsh --cmd cd)"
 fi
 
-# vim mode
-# bindkey -v
 
-# archey -o
 
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-
-#fpath=(/Users/JaredMcGuire/.docker/completions $fpath)
-#autoload -Uz compinit
-#compinit
-
-# End of Docker CLI completions
