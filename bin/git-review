@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+trap 'cleanup' EXIT
+function cleanup
+{
+  if [ -n "${CLEANUP_WORKTREE:-}" ]; then
+    echo "Cleaning up worktree..."
+    git worktree remove --force "$CLEANUP_WORKTREE" 2>/dev/null || true
+  fi
+}
+
+function log
+{
+  # Output to stderr
+  echo "$1" >&2
+}
+
+function info
+{
+  log "[INFO] ${1}"
+}
+
+function usage
+{
+  log "Usage: git review <pr_number>"
+  exit 1
+}
+
+function error # $msg
+{
+  log "[ERROR] ${1}"
+  exit 1
+}
+
+function main
+{
+  # Ensure that the first argument is the PR number
+  [ $# -lt 1 ] && error
+  local PR="$1"
+  
+  # Validate PR number is numeric
+  if ! [[ "$PR" =~ ^[0-9]+$ ]]; then
+    error "PR number must be numeric"
+  fi
+  
+  # Ensure we're in a git repository
+  if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    error "Not in a git repository"
+  fi
+  
+  # Get the repository root and name
+  local REPO_ROOT=$(git rev-parse --show-toplevel)
+  local REPO_NAME=$(basename "$REPO_ROOT")
+  local WORKTREE_NAME="pr-${PR}"
+  local WORKTREE_PATH="${REPO_ROOT}/../${REPO_NAME}-${WORKTREE_NAME}"
+  
+  # Check if worktree already exists
+  if git worktree list | grep -q "$WORKTREE_PATH"; then
+    info "Worktree for PR #${PR} already exists at: $WORKTREE_PATH"
+    info "Switching to existing worktree..."
+    cd "$WORKTREE_PATH"
+    exec $SHELL
+  fi
+  
+  # Fetch the PR
+  echo "Fetching PR #${PR}..."
+  if ! git fetch origin "pull/${PR}/head:${WORKTREE_NAME}"; then
+    error "Failed to fetch PR #${PR}. Make sure the PR exists and you have access."
+  fi
+  
+  # Create worktree
+  echo "Creating worktree for PR #${PR}..."
+  if ! git worktree add "$WORKTREE_PATH" "$WORKTREE_NAME"; then
+    error "Failed to create worktree"
+  fi
+  
+  # Success message
+  info "Successfully created worktree for PR #${PR} at: $WORKTREE_PATH"
+  info "Switching to the PR worktree..."
+  
+  # Change to the worktree directory and spawn a new shell
+  cd "$WORKTREE_PATH"
+  exec $SHELL
+}
+
+main "$@"

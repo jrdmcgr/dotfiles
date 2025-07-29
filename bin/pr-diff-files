@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Show changed files between PR branch and its base branch
+
+function error
+{
+  echo "Error: $1" >&2
+  exit 1
+}
+
+# Ensure we're in a git repository
+if ! git rev-parse --git-dir > /dev/null 2>&1; then
+  error "Not in a git repository"
+fi
+
+# Find the main branch
+MAIN_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@' || echo "main")
+
+# Find the merge base
+MERGE_BASE=$(git merge-base HEAD "origin/${MAIN_BRANCH}" 2>/dev/null) || {
+  # Try without origin/ prefix
+  MERGE_BASE=$(git merge-base HEAD "${MAIN_BRANCH}" 2>/dev/null) || {
+    error "Could not find merge base with ${MAIN_BRANCH}"
+  }
+}
+
+# Show changed files
+git diff --name-status "$MERGE_BASE" HEAD "$@"
