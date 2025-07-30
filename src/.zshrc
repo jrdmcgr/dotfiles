@@ -107,6 +107,20 @@ autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
+function cut-on-tabs
+{
+    cut -f ${1:-1}
+}
+
+alias ct=cut-on-tabs
+
+function cut-on-spaces
+{
+    cut -d' ' -f ${1:-1}
+}
+
+alias cs='cut-on-spaces'
+
 function exists
 {
     which $1 >/dev/null
@@ -174,6 +188,7 @@ alias gitconfig="edit ~/.gitconfig"
 alias hosts="sudo $EDITOR /etc/hosts"
 alias zshrc="edit ~/.zshrc; source ~/.zshrc"
 alias sshconfig="edit ~/.ssh/config"
+alias tmuxconfig="edit ~/.config/tmux/tmux.conf"
 
 function vimconfig() {
     cd ~/dotfiles
