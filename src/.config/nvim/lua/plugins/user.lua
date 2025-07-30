@@ -9,6 +9,7 @@ return {
       vim.api.nvim_set_keymap("i", "<C-K>", "copilot#Dismiss()", { expr = true, silent = true })
     end,
   },
+
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
@@ -17,6 +18,20 @@ return {
       },
     },
   },
+
+  -- Hide the tabline by default
+  {
+    "AstroNvim/astrocore",
+    ---@param opts AstroCoreOpts
+    opts = {
+      options = {
+        opt = {
+          showtabline = 0,
+        },
+      },
+    },
+  },
+
   {
     "loctvl842/monokai-pro.nvim",
     lazy = false, -- Load the plugin immediately (disable lazy loading for colorschemes)
@@ -30,6 +45,7 @@ return {
       vim.cmd "colorscheme monokai-pro"
     end,
   },
+
   {
     "S1M0N38/love2d.nvim",
     cmd = "LoveRun",
