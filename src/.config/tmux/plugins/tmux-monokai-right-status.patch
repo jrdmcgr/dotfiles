@@ -1,0 +1,13 @@
+diff --git a/scripts/monokai.sh b/scripts/monokai.sh
+index 93c8789..8994d77 100755
+--- a/scripts/monokai.sh
++++ b/scripts/monokai.sh
+@@ -295,7 +295,7 @@ main()
+   if $show_powerline; then
+     tmux set-option -ga status-right "#[fg=${green},bg=${yellow}]${right_sep}#[bg=${green},fg=${black},bold] #h #[bg=${black},fg=${green}]"
+   else
+-    tmux set-option -ga status-right "#[fg=${green},bg=${blue}]${right_sep}#[bg=${green},fg=${black},bold] #h "
++    tmux set-option -ga status-right "#[fg=${green},bg=${blue}]${right_sep}#[bg=${green},fg=${black},bold]  "
+   fi
+ 
+   # Window option

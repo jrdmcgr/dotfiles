@@ -1,0 +1,6 @@
+[submodule "src/.config/tmux/plugins/tmux-monokai-pro"]
+	path = src/.config/tmux/plugins/tmux-monokai-pro
+	url = git@github.com:maxpetretta/tmux-monokai-pro
+[submodule "src/.config/tmux/plugins/tpm"]
+	path = src/.config/tmux/plugins/tpm
+	url = git@github.com:tmux-plugins/tpm
