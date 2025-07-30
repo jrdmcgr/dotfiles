@@ -1,0 +1,8 @@
+# Ideas
+
+- Make a plain text ticketing system
+  - v1 a folder of markdown files
+  - each file is a ticket
+  - a ticket has a title, body, and yaml metadata
+  - when we get a lot of tickets, they can be grouped into epics by placing them in subfolders
+  - they can be ranked by prefixing them with an ordinal
