@@ -416,5 +416,7 @@ fi
 
 bindkey -e # Use emacs keybindings in the command line
 
-eval "$(rbenv init - --no-rehash zsh)"
+if installed rbenv; then
+    eval "$(rbenv init - --no-rehash zsh)"
+fi
 
