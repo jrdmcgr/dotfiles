@@ -2,7 +2,12 @@
 # zsh Environment
 #
 
+#
+
 source ~/.config/zsh/functions/common.zsh
+
+export FUNCNEST=10000 # Increase function nesting limit
+
 setopt AUTO_CD
 
 # Completion styling
@@ -29,6 +34,9 @@ setopt hist_verify
 setopt inc_append_history
 setopt share_history
 
+
+# ---
+
 # XDG - conventional locations for app data
 # See https://specifications.freedesktop.org/basedir-spec/latest/
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -36,6 +44,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
+# Make programs respect XDG
 export LESSHISTFILE="$XDG_CACHE_HOME/lesshst"
 
 # Source private vars
