@@ -385,5 +385,6 @@ if exists zoxide; then
     eval "$(zoxide init zsh --cmd cd)"
 fi
 
+bindkey -e # Use emacs keybindings in the command line
 
 
