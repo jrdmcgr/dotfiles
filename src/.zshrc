@@ -381,13 +381,6 @@ function casks
 }
 
 
-#
-# Apps
-#
-
-alias claude="/Users/JaredMcGuire/.claude/local/claude"
-
-
 
 #
 # Prompt
