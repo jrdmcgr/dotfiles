@@ -62,6 +62,36 @@ export BUN_INSTALL="$HOME/.bun"
 
 
 
+path=(
+    "$HOME/Code/dotfiles/bin"
+    "$BREW_ROOT/bin"
+    "$BREW_ROOT/sbin"
+    # PHP: Global tools installed with `composer global require`
+    "$HOME/.config/composer/vendor/bin"
+    # MySQL: installed with `brew`
+    "/opt/homebrew/opt/mysql-client/bin"
+    # VSCode: devcontainer cli
+    "$HOME/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
+    # dotnet
+    "/usr/local/share/dotnet"
+    "$HOME/.dotnet/tools"
+    # bun 
+    "$BUN_INSTALL/bin"
+    # Standard locations 
+    "/usr/local/bin"
+    "/usr/local/sbin"
+    "/usr/bin"
+    "/usr/sbin"
+    "/bin"
+    "/sbin"
+)
+
+fpath=(
+    "$HOME/.docker/completions"
+    "/opt/homebrew/share/zsh/site-functions"
+    # "$HOME/.config/zsh/functions" 
+    $fpath
+)
 
 
 #
