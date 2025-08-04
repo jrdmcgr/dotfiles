@@ -2,6 +2,7 @@
 # zsh Environment
 #
 
+source ~/.config/zsh/functions/common.zsh
 setopt AUTO_CD
 
 # Completion styling
@@ -129,36 +130,38 @@ function exists
 # ls => lsd
 export LC_COLLATE="C"  # Sort dotfiles first in `ls -la` output
 
-if exists lsd; then 
+if installed lsd; then 
     alias ll='lsd -lA --group-dirs=first --date=+%Y-%m-%d'
     alias tree='lsd --tree'
 else 
     alias ll='ls -lAFGh'
 fi
 
+alias l='ls -1A'
+
 # cat => bat
-if exists bat; then 
+if installed bat; then 
     export BAT_THEME="Monokai Extended"
     alias cat='bat'
 fi
 
 # du => dust
-if exists dust; then 
+if installed dust; then 
     alias du='dust'
 fi
 
 # ps => procs
-if exists procs; then
+if installed procs; then
     alias ps='procs'
 fi
 
 # df => duf
-if exists duf; then
+if installed duf; then
     alias df='duf'
 fi
 
 # Fuzzy Finder `fzf`
-if exists fzf; then
+if installed fzf; then
     export FZF_DEFAULT_COMMAND="fd --type file --color=always"
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_ALT_C_OPTS="--preview 'lsd --tree --color=always {} | head -200'"
@@ -167,33 +170,60 @@ if exists fzf; then
     source $XDG_CONFIG_HOME/fzf-git.sh
 fi
 
-# 
-# Configuration
+
+
+#
+# Editing
 #
 
-if exists nvim; then
-    export EDITOR="nvim"
-    export VISUAL="nvim"
-    alias vim='nvim'
-    alias vi='nvim'
-fi
+# Edit the current command line with ctrl-x ctrl-e
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
 
 function edit
 {
     $EDITOR $*
 }
 
-# Shortcuts for config edits
-alias gitconfig="edit ~/.gitconfig"
-alias hosts="sudo $EDITOR /etc/hosts"
+alias e='edit'
+
+if installed subl; then
+    export VISUAL="subl"
+fi
+
+if installed code; then
+    export VISUAL="code"
+else
+    export VISUAL="$EDITOR"
+fi
+
+if installed vim; then
+    export EDITOR="vim"
+    alias vi="vim"
+fi
+
+if installed nvim; then
+    export EDITOR="nvim"
+    alias vim="nvim"
+    alias vi="nvim"
+fi
+
+
+
+
+
+# Shortcuts for editing configuration files
+alias gitconfig="edit ${DOTFILES}/src/.gitconfig"
+alias hosts="sudo ${EDITOR} /etc/hosts"
 alias zshrc="edit ~/.zshrc; source ~/.zshrc"
 alias sshconfig="edit ~/.ssh/config"
-alias tmuxconfig="edit ~/.config/tmux/tmux.conf"
-
-function vimconfig() {
-    cd ~/dotfiles
-    $EDITOR ~/.config/nvim/lua/plugins/user.lua
-}
+alias tmuxconfig="edit ${CONFIG}/tmux/tmux.conf; tmux source-file ${CONFIG}/tmux/tmux.conf"
+alias dotfiles="cd $DOTFILES && edit $DOTFILES"
+alias secrets="edit ${XDG_CONFIG_HOME}/secrets.env; source ${XDG_CONFIG_HOME}/secrets.env"
+alias vimrc="cd $DOTFILES && edit src/.config/nvim/lua/plugins/user.lua"
+alias resh="exec $SHELL"
 
 # Copy + print SSH public key
 alias pubkey="cat ~/.ssh/id_rsa.pub | tee >(pbcopy)"
@@ -250,12 +280,12 @@ fi
 alias serve.php='php -S 0:9000'
 alias art='php artisan'
 
-if exists psysh; then
+if installed psysh; then
 	function php
 	{
 		if [ $# -eq 0 ]
-		then $BREW_BIN/psysh
-		else $BREW_BIN/php $*
+		then psysh
+		else php $*
 		fi
 	}
 fi
@@ -362,7 +392,7 @@ alias claude="/Users/JaredMcGuire/.claude/local/claude"
 #
 # Prompt
 #
-if exists starship; then
+if installed starship; then
     eval "$(starship init zsh)"
 else
     # Fallback to default prompt if starship is not installed
@@ -381,7 +411,7 @@ autoload -Uz compinit
 compinit
 
 
-if exists zoxide; then
+if installed zoxide; then
     eval "$(zoxide init zsh --cmd cd)"
 fi
 
