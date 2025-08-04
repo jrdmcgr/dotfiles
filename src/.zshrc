@@ -47,94 +47,26 @@ export XDG_STATE_HOME="$HOME/.local/state"
 # Make programs respect XDG
 export LESSHISTFILE="$XDG_CACHE_HOME/lesshst"
 
-# Source private vars
-SECRETS="$HOME/.config/secrets.env"
-test -f $SECRETS && 
+
 
 
 #
-# Homebrew
+# Locations
 #
+
 export BREW_ROOT="/opt/homebrew"
 export BREW_BIN="$BREW_ROOT/bin"
-export HOMEBREW_INSTALL_FROM_API=1
-export HOMEBREW_NO_AUTO_UPDATE=1
-export HOMEBREW_NO_ANALYTICS=1
-
-# Describe all programs installed by brew (excluding dependencies)
-function brewed
-{
-    brew leaves | xargs brew desc 2>/dev/null
-}
-
-function casks
-{
-    brew list --cask | xargs brew desc --cask
-}
+export DOTFILES="$HOME/Code/dotfiles"
+export CONFIG="$DOTFILES/.config/"
+export BUN_INSTALL="$HOME/.bun"
 
 
 
-
-#
-# PATH
-#
-
-PATH="$HOME/Code/dotfiles/bin"
-PATH="$PATH:$BREW_ROOT/bin"
-PATH="$PATH:$BREW_ROOT/sbin"
-
-PATH="$PATH:/usr/local/bin:/usr/local/sbin"
-PATH="$PATH:/usr/bin:/usr/sbin:/bin:/sbin"
-
-# PHP: Global tools installed with `composer global require`
-PATH="$PATH:$HOME/.config/composer/vendor/bin"
-
-# MySQL: installed with `brew`
-PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
-
-# VSCode
-# devcontainer cli
-PATH="$PATH:$HOME/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
-
-# dotnet
-PATH="$PATH:/usr/local/share/dotnet"
-PATH="$PATH:$HOME/.dotnet/tools"
-
-export PATH
-
-
-# Source secrets if exists
-SECRETS="$HOME/.config/secrets.env"
-test -f $SECRETS && source $SECRETS
 
 
 #
 # Modern Shell
 #
-
-# Edit the current command line with ctrl-x ctrl-e
-autoload -z edit-command-line
-zle -N edit-command-line
-bindkey "^X^E" edit-command-line
-
-function cut-on-tabs
-{
-    cut -f ${1:-1}
-}
-
-alias ct=cut-on-tabs
-
-function cut-on-spaces
-{
-    cut -d' ' -f ${1:-1}
-}
-
-alias cs='cut-on-spaces'
-
-function exists
-{
-    which $1 >/dev/null
-}
 
 # ls => lsd
 export LC_COLLATE="C"  # Sort dotfiles first in `ls -la` output
@@ -251,15 +183,15 @@ export GITHUB_USER='jrdmcgr'
 export PYTHONDONTWRITEBYTECODE=1  # Python won't write .pyc files
 export PYTHON_BIN="/Library/Frameworks/Python.framework/Versions/3.11/bin"
 
-# Root Python - only used to create virtual environments
-alias py="$PYTHON_BIN/python3.11"
+## Root Python - only used to create virtual environments
+alias python="$PYTHON_BIN/python3.11"
 
 # Source a python virtual environment,
 #   creating one if it doesn't exist.
 function venv
 {
     if [ -d ".venv" ]
-    then py -m venv .venv
+    then python -m venv .venv
     fi
 
     source .venv/bin/activate
@@ -268,22 +200,14 @@ function venv
 
 # Javascript
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
-# npm
-alias ni='npm install'
-alias nid='npm install --save-dev'
-alias nis='npm install --save'
+## bun
+include "$HOME/.bun/_bun"
 
 
 # Rust
 if [ -f $HOME/.cargo/env ]; then
     source "$HOME/.cargo/env"
 fi
-
 
 # PHP
 alias serve.php='php -S 0:9000'
@@ -319,21 +243,39 @@ function inspect
 }
 
 
+# Make file executable and execute it.
 function execute {
-    local file="$1"
-    if [ ! -x $file ]; then
-        chmod +x $file
+    if [ ! -x "$1" ]; then
+        chmod +x "$1"
     fi
-    if [[ $1 =~ / ]]; then
-        $1
+
+    if [[ "$1" =~ / ]]; then
+        "$1"
     else
-        ./$1
+        ./"$1"
     fi
 }
+
 alias x='execute'
+
+function cut-on-tabs
+{
+    cut -f ${1:-1}
+}
+
+alias ct=cut-on-tabs
+
+function cut-on-spaces
+{
+    cut -d' ' -f ${1:-1}
+}
+
+alias cs='cut-on-spaces'
+
 
 alias isodate="date +%F"
 alias isotime="date +%FT%TZ"
+
 alias sqlite="sqlite3"
 
 # Networking
@@ -389,6 +331,23 @@ function tab-title
 
 alias tt="tab-title"
 
+# Homebrew
+export HOMEBREW_INSTALL_FROM_API=1
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_ENV_HINTS=1
+
+# Describe all programs installed by brew (excluding dependencies)
+function brewed
+{
+    brew leaves | xargs brew desc 2>/dev/null
+}
+
+function casks
+{
+    brew list --cask | xargs brew desc --cask
+}
+
 
 #
 # Apps
@@ -409,13 +368,19 @@ else
 fi
 
 
+
+#
+# Sources
+#
+
+include "$HOME/.config/secrets.env"
+
+
 #
 # Setup
 #
 
 # fpath + completions
-fpath=($HOME/.docker/completions $fpath)
-fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
 autoload -Uz compinit
 compinit
 
