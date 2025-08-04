@@ -229,6 +229,9 @@ fi
 # General Computing 
 #
 
+# mkdir - create intermediate directories
+alias mkdir='mkdir -p'
+
 
 # Make a directory and cd into it.
 function mcd
@@ -241,7 +244,6 @@ function inspect
 {
     (head -5; tail -5) < $1
 }
-
 
 # Make file executable and execute it.
 function execute {
