@@ -1,0 +1,7 @@
+Pry.config.pager = 'bat'
+Pry.config.editor = 'nvim'
+Pry.config.prompt = Pry::Prompt.new(
+  "custom",
+  "ruby gem prompt",
+  [ proc { "   " }, proc { " • " }]
+)
